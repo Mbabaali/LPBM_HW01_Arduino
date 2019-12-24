@@ -570,11 +570,15 @@ void loop()
 
   SelectChannel(0);
   delay(150);
+  SelectChannel(0);
+  delay(150);
   dut1.set_channel_UI(SpiReadChannelADC1());
   dut2.set_channel_NO(SpiReadChannelADC2());
   dut4.set_channel_UI(SpiReadChannelADC3());
   dut5.set_channel_NO(SpiReadChannelADC4());
 
+  SelectChannel(1);
+  delay(150)
   SelectChannel(1);
   delay(150);
   dut1.set_channel_MI(SpiReadChannelADC1());
@@ -584,11 +588,15 @@ void loop()
 
   SelectChannel(2);
   delay(150);
+  SelectChannel(2);
+  delay(150);
   dut1.set_channel_I(SpiReadChannelADC1());
   dut3.set_channel_UI(SpiReadChannelADC2());
   dut4.set_channel_I(SpiReadChannelADC3());
   dut6.set_channel_UI(SpiReadChannelADC4());
 
+  SelectChannel(3);
+  delay(150);
   SelectChannel(3);
   delay(150);
   dut1.set_channel_NO(SpiReadChannelADC1());
@@ -598,11 +606,15 @@ void loop()
 
   SelectChannel(4);
   delay(150);
+  SelectChannel(4);
+  delay(150);
   dut1.set_channel_PWR_DUT(SpiReadChannelADC1());
   dut3.set_channel_I(SpiReadChannelADC2());
   dut4.set_channel_PWR_DUT(SpiReadChannelADC3());
   dut6.set_channel_I(SpiReadChannelADC4());
 
+  SelectChannel(5);
+  delay(150);
   SelectChannel(5);
   delay(150);
   dut2.set_channel_UI(SpiReadChannelADC1());
@@ -612,11 +624,15 @@ void loop()
 
   SelectChannel(6);
   delay(150);
+  SelectChannel(6);
+  delay(150);
   dut2.set_channel_MI(SpiReadChannelADC1());
   dut3.set_channel_PWR_DUT(SpiReadChannelADC2());
   dut5.set_channel_MI(SpiReadChannelADC3());
   dut6.set_channel_MI(SpiReadChannelADC4());
 
+  SelectChannel(7);
+  delay(150);
   SelectChannel(7);
   delay(150);
   dut2.set_channel_I(SpiReadChannelADC1());
