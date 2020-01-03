@@ -823,43 +823,13 @@ void CS_STATE(int STATE)
     A new conversion cycle is initiated following the data read cycle with the analog 
     input tied to the newly selected channel.
 */
+/////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////FONCTION SELECTION CHANNEL ////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
 void SelectChannel(int n)
-/**
- * Les 4 ADC du banc ont un multiplexeur integré, cette fonction nous permet de le set pour récuperer un channel en particulier de l'ADC
- * (les 4 channels à récuperer sont : tension d'entrée, courant en uA, mA, et A)
- */
 {
-  // // Tableau des Codes Hexa sélection de channel
-  // int channel[8] = {0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F}; //
-  // int CSADC_channel[4] = {CSADC1, CSADC2, CSADC3, CSADC4};
-  // int CSMUX_channel[4] = {CSMUX1, CSMUX2, CSMUX3, CSMUX4};
-
-  // for (unsigned char i = 0; i < 4; i++)
-  // {
-  //   // Chip Select à l'état haut pour la sélection du channel
-  //   digitalWrite(CSADC_channel[i], HIGH); // CSADC à 1, pas de sortie
-
-  //   digitalWrite(CSMUX_channel[i], HIGH); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
-
-  //   // Envoie SPI de l'adresse MUX pour le channel souhaité
-  //   SPI.transfer(channel[n]);
-
-  //   // On remet tous les CSMUX à 0 pour les connecter en interne à l'ADC
-  //   digitalWrite(CSADC_channel[i], LOW);
-  //   /**
-  //  * Pourquoi on remet les CSADC à High ? qu'est ce que ça donne si on le met à low ? 
-  //  */
-
-  //   digitalWrite(CSMUX_channel[i], LOW);
-  //   for (unsigned count = 0; count < 24; count++)
-  //     SPI.transfer(0);
-  //   digitalWrite(CSADC_channel[i], HIGH); // CSADC à 1, pas de sortie
-
-  //   digitalWrite(CSMUX_channel[i], HIGH); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
-  // }
-
   // Tableau des Codes Hexa sélection de channel
-  int channel[8] = {0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};//
+  int channel[8] = {0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
 
   // Chip Select à l'état haut pour la sélection du channel
   digitalWrite(CSADC1, HIGH); // CSADC à 1, pas de sortie
@@ -876,14 +846,147 @@ void SelectChannel(int n)
   SPI.transfer(channel[n]);
 
   // On remet tous les CSMUX à 0 pour les connecter en interne à l'ADC
-  digitalWrite(CSADC1, LOW);
-  digitalWrite(CSADC2, LOW);
-  digitalWrite(CSADC3, LOW);
-  digitalWrite(CSADC4, LOW);
-  /**
-   * Pourquoi on remet les CSADC à High ? qu'est ce que ça donne si on le met à low ? 
-   */
+  digitalWrite(CSADC1, HIGH);
+  digitalWrite(CSADC2, HIGH);
+  digitalWrite(CSADC3, HIGH);
+  digitalWrite(CSADC4, HIGH);
 
+  digitalWrite(CSMUX1, LOW);
+  digitalWrite(CSMUX2, LOW);
+  digitalWrite(CSMUX3, LOW);
+  digitalWrite(CSMUX4, LOW);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////FONCTION SELECTION CHANNEL ADC1////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+void SelectChannelADC1(int n)
+{
+  // Tableau des Codes Hexa sélection de channel
+  int channel[8]={0x08,0x09,0x0A,0x0B,0x0C,0x0D,0x0E,0x0F};
+  
+  // Chip Select à l'état haut pour la sélection du channel
+  digitalWrite(CSADC1, HIGH); // CSADC à 1, pas de sortie
+  digitalWrite(CSADC2, HIGH);
+  digitalWrite(CSADC3, HIGH);
+  digitalWrite(CSADC4, HIGH);
+  
+  digitalWrite(CSMUX1, HIGH); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
+  digitalWrite(CSMUX2, LOW);
+  digitalWrite(CSMUX3, LOW);
+  digitalWrite(CSMUX4, LOW);
+  
+  // Envoie SPI de l'adresse MUX pour le channel souhaité
+  SPI.transfer(channel[n]);
+  
+  // On remet tous les CSMUX à 0 pour les connecter en interne à l'ADC
+  digitalWrite(CSADC1, HIGH);
+  digitalWrite(CSADC2, HIGH);
+  digitalWrite(CSADC3, HIGH);
+  digitalWrite(CSADC4, HIGH);
+  
+  digitalWrite(CSMUX1, LOW);
+  digitalWrite(CSMUX2, LOW);
+  digitalWrite(CSMUX3, LOW);
+  digitalWrite(CSMUX4, LOW);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////FONCTION SELECTION CHANNEL ADC2////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+void SelectChannelADC2(int n)
+{
+  // Tableau des Codes Hexa sélection de channel
+  int channel[8]={0x08,0x09,0x0A,0x0B,0x0C,0x0D,0x0E,0x0F};
+  
+  // Chip Select à l'état haut pour la sélection du channel
+  digitalWrite(CSADC1, HIGH); // CSADC à 1, pas de sortie
+  digitalWrite(CSADC2, HIGH);
+  digitalWrite(CSADC3, HIGH);
+  digitalWrite(CSADC4, HIGH);
+  
+  digitalWrite(CSMUX1, LOW); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
+  digitalWrite(CSMUX2, HIGH);
+  digitalWrite(CSMUX3, LOW);
+  digitalWrite(CSMUX4, LOW);
+  
+  // Envoie SPI de l'adresse MUX pour le channel souhaité
+  SPI.transfer(channel[n]);
+  
+  // On remet tous les CSMUX à 0 pour les connecter en interne à l'ADC
+  digitalWrite(CSADC1, HIGH);
+  digitalWrite(CSADC2, HIGH);
+  digitalWrite(CSADC3, HIGH);
+  digitalWrite(CSADC4, HIGH);
+  
+  digitalWrite(CSMUX1, LOW);
+  digitalWrite(CSMUX2, LOW);
+  digitalWrite(CSMUX3, LOW);
+  digitalWrite(CSMUX4, LOW);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////FONCTION SELECTION CHANNEL ADC3////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+void SelectChannelADC3(int n)
+{
+  // Tableau des Codes Hexa sélection de channel
+  int channel[8]={0x08,0x09,0x0A,0x0B,0x0C,0x0D,0x0E,0x0F};
+  
+  // Chip Select à l'état haut pour la sélection du channel
+  digitalWrite(CSADC1, HIGH); // CSADC à 1, pas de sortie
+  digitalWrite(CSADC2, HIGH);
+  digitalWrite(CSADC3, HIGH);
+  digitalWrite(CSADC4, HIGH);
+  
+  digitalWrite(CSMUX1, LOW); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
+  digitalWrite(CSMUX2, LOW);
+  digitalWrite(CSMUX3, HIGH);
+  digitalWrite(CSMUX4, LOW);
+  
+  // Envoie SPI de l'adresse MUX pour le channel souhaité
+  SPI.transfer(channel[n]);
+  
+  // On remet tous les CSMUX à 0 pour les connecter en interne à l'ADC
+  digitalWrite(CSADC1, HIGH);
+  digitalWrite(CSADC2, HIGH);
+  digitalWrite(CSADC3, HIGH);
+  digitalWrite(CSADC4, HIGH);
+  
+  digitalWrite(CSMUX1, LOW);
+  digitalWrite(CSMUX2, LOW);
+  digitalWrite(CSMUX3, LOW);
+  digitalWrite(CSMUX4, LOW);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////FONCTION SELECTION CHANNEL ADC4////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+void SelectChannelADC4(int n)
+{
+  // Tableau des Codes Hexa sélection de channel
+  int channel[8]={0x08,0x09,0x0A,0x0B,0x0C,0x0D,0x0E,0x0F};
+  
+  // Chip Select à l'état haut pour la sélection du channel
+  digitalWrite(CSADC1, HIGH); // CSADC à 1, pas de sortie
+  digitalWrite(CSADC2, HIGH);
+  digitalWrite(CSADC3, HIGH);
+  digitalWrite(CSADC4, HIGH);
+  
+  digitalWrite(CSMUX1, LOW); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
+  digitalWrite(CSMUX2, LOW);
+  digitalWrite(CSMUX3, LOW);
+  digitalWrite(CSMUX4, HIGH);
+  
+  // Envoie SPI de l'adresse MUX pour le channel souhaité
+  SPI.transfer(channel[n]);
+  
+  // On remet tous les CSMUX à 0 pour les connecter en interne à l'ADC
+  digitalWrite(CSADC1, HIGH);
+  digitalWrite(CSADC2, HIGH);
+  digitalWrite(CSADC3, HIGH);
+  digitalWrite(CSADC4, HIGH);
+  
   digitalWrite(CSMUX1, LOW);
   digitalWrite(CSMUX2, LOW);
   digitalWrite(CSMUX3, LOW);
