@@ -1,9 +1,9 @@
 /****************************************************************************
- * Programme : TEST_0.0.1_Insertion_des_DUT_et_Lecture
- * Date de création : Jeudi 24 Octobre 2019 à 14h41
- * Créateur: BARWANE Aslam
- * Fonction du programme test: Insertion des signaux de DUT1 à DUT6
- */
+   Programme : TEST_0.0.1_Insertion_des_DUT_et_Lecture
+   Date de création : Jeudi 24 Octobre 2019 à 14h41
+   Créateur: BARWANE Aslam
+   Fonction du programme test: Insertion des signaux de DUT1 à DUT6
+*/
 
 // Ajout des librairies pour le SPI
 #include <Arduino.h>
@@ -11,17 +11,17 @@
 #include <DueTimer.h>
 
 // Déclaration des pins de sélection de Channel Mux et ADC
-#define CSADC1 3
-#define CSMUX1 2
+#define CSADC1 1
+#define CSMUX1 3
 
-#define CSADC2 A5
-#define CSMUX2 A4
+#define CSADC2 A4
+#define CSMUX2 A5
 
-#define CSADC3 A3
-#define CSMUX3 A2
+#define CSADC3 A2
+#define CSMUX3 A3
 
-#define CSADC4 A1
-#define CSMUX4 A0
+#define CSADC4 A0
+#define CSMUX4 A1
 
 // Déclaration des pins de veille/éveil des produits
 #define CMD_ACC_DUT1 4
@@ -67,10 +67,10 @@ struct amperageMax
 };
 
 /*Enumération pour l'unité du courant:
-0 => µA
-1 => mA
-2 => A
-3 => Unknown (valeur inconnue qui apparait sur la trame à régler plus tard)*/
+  0 => µA
+  1 => mA
+  2 => A
+  3 => Unknown (valeur inconnue qui apparait sur la trame à régler plus tard)*/
 enum courantUnit
 {
   cu_uA = 0,
@@ -81,142 +81,142 @@ enum courantUnit
 
 class Dut
 {
-private:
-  String nom;
-  double Vin = 0;
+  private:
+    String nom;
+    double Vin = 0;
 
-  double uA = 0;
-  double mA = 0;
-  double A = 0;
+    double uA = 0;
+    double mA = 0;
+    double A = 0;
 
-  double SECURITY_MAX_CURRENT = 0;
+    double SECURITY_MAX_CURRENT = 0;
 
-  int CMD_ACC_DUT;
-  int CMD_PWR_DUT;
-  int UI_PROT_STATE_DUT;
+    int CMD_ACC_DUT;
+    int CMD_PWR_DUT;
+    int UI_PROT_STATE_DUT;
 
-  volatile int flag_state_power;
+    volatile int flag_state_power;
 
-  bool boutonAliementationDut = false;
+    bool boutonAliementationDut = false;
 
-  double signal_UI;
-  double signal_MI;
-  double signal_I;
-  double signal_PWR_DUT;
+    double signal_UI;
+    double signal_MI;
+    double signal_I;
+    double signal_PWR_DUT;
 
-  long channel_UI = 0;
-  long channel_MI = 0;
-  long channel_I = 0;
-  long channel_NO = 0;
-  long channel_PWR_DUT = 0;
+    long channel_UI = 0;
+    long channel_MI = 0;
+    long channel_I = 0;
+    long channel_NO = 0;
+    long channel_PWR_DUT = 0;
 
-  double uW = 0;
-  double mW = 0;
-  double W = 0;
+    double uW = 0;
+    double mW = 0;
+    double W = 0;
 
-  courantUnit unite;
+    courantUnit unite;
 
-  bool BOUTON_ON_DUT = false;
+    bool BOUTON_ON_DUT = false;
 
-public:
-  /**************************************************************************
-     *                       CONSTRUCTEUR DE LA CLASSE DUT 
-     * ************************************************************************/
-  Dut(String nomDut);
+  public:
+    /**************************************************************************
+                               CONSTRUCTEUR DE LA CLASSE DUT
+       * ************************************************************************/
+    Dut(String nomDut);
 
-  /**************************************************************************
-     *                           GETTER DE LA CLASSE DUT 
-     * ************************************************************************/
+    /**************************************************************************
+                                   GETTER DE LA CLASSE DUT
+       * ************************************************************************/
 
-  double get_A();
-  double get_mA();
-  double get_uA();
-  double get_Vin();
+    double get_A();
+    double get_mA();
+    double get_uA();
+    double get_Vin();
 
-  double get_signal_UI();
-  double get_signal_MI();
-  double get_signal_I();
-  double get_signal_PWR_DUT();
+    double get_signal_UI();
+    double get_signal_MI();
+    double get_signal_I();
+    double get_signal_PWR_DUT();
 
-  long get_channel_UI();
-  long get_channel_MI();
-  long get_channel_I();
-  long get_channel_NO();
-  long get_channel_PWR_DUT();
+    long get_channel_UI();
+    long get_channel_MI();
+    long get_channel_I();
+    long get_channel_NO();
+    long get_channel_PWR_DUT();
 
-  double get_uW();
-  double get_mW();
-  double get_W();
+    double get_uW();
+    double get_mW();
+    double get_W();
 
-  String get_name();
+    String get_name();
 
-  volatile int get_flag_state_power();
+    volatile int get_flag_state_power();
 
-  courantUnit get_unite();
-  bool get_BOUTON_ON_DUT();
+    courantUnit get_unite();
+    bool get_BOUTON_ON_DUT();
 
-  /**************************************************************************
-     *                           SETTER DE LA CLASSE DUT 
-     * ************************************************************************/
-  void set_A(double setter_A);
-  void set_mA(double setter_mA);
-  void set_uA(double setter_uA);
-  void set_Vin(double setter_Vin);
+    /**************************************************************************
+                                   SETTER DE LA CLASSE DUT
+       * ************************************************************************/
+    void set_A(double setter_A);
+    void set_mA(double setter_mA);
+    void set_uA(double setter_uA);
+    void set_Vin(double setter_Vin);
 
-  void set_signal_UI(double setter_signal_UI);
-  void set_signal_MI(double setter_signal_MI);
-  void set_signal_I(double setter_signal_I);
-  void set_signal_PWR_DUT(double setter_signal_PWR_DUT);
+    void set_signal_UI(double setter_signal_UI);
+    void set_signal_MI(double setter_signal_MI);
+    void set_signal_I(double setter_signal_I);
+    void set_signal_PWR_DUT(double setter_signal_PWR_DUT);
 
-  void set_channel_UI(long setter_channel_UI);
-  void set_channel_MI(long setter_channel_MI);
-  void set_channel_I(long setter_channel_I);
-  void set_channel_NO(long setter_channel_NO);
-  void set_channel_PWR_DUT(long setter_channel_PWR_DUT);
+    void set_channel_UI(long setter_channel_UI);
+    void set_channel_MI(long setter_channel_MI);
+    void set_channel_I(long setter_channel_I);
+    void set_channel_NO(long setter_channel_NO);
+    void set_channel_PWR_DUT(long setter_channel_PWR_DUT);
 
-  void set_uW(double setter_uW);
-  void set_mW(double setter_mW);
-  void set_W(double setter_W);
-  void set_unite(courantUnit setter_unite);
+    void set_uW(double setter_uW);
+    void set_mW(double setter_mW);
+    void set_W(double setter_W);
+    void set_unite(courantUnit setter_unite);
 
-  void set_SECURITY_MAX_CURRENT(double courant_max);
-  void set_courant_max();
-  void set_ACC_PWR_PROT(int CMD_ACC, int CMD_PWR, int UI_PROT_STATE);
-  void set_flag_state_power(volatile int flag_max_current_name_DUT);
-  void set_state_power(volatile int flag_max_current_name_DUT);
-  void set_boutonAliementationDut();
+    void set_SECURITY_MAX_CURRENT(double courant_max);
+    void set_courant_max();
+    void set_ACC_PWR_PROT(int CMD_ACC, int CMD_PWR, int UI_PROT_STATE);
+    void set_flag_state_power(volatile int flag_max_current_name_DUT);
+    void set_state_power(volatile int flag_max_current_name_DUT);
+    void set_boutonAliementationDut();
 
-  /**************************************************************************
-     *                   METHODE DE LA CLASSE DUT 
-     * ************************************************************************/
+    /**************************************************************************
+                           METHODE DE LA CLASSE DUT
+       * ************************************************************************/
 
-  // float conversion_channel_A();
-  // double conversion_channel_microA();
-  // float conversion_channel_mA();
-  // float conversion_channel_PWR_DUT();
+    // float conversion_channel_A();
+    // double conversion_channel_microA();
+    // float conversion_channel_mA();
+    // float conversion_channel_PWR_DUT();
 
-  // Methode pour faire la conversion des valeurs lues dans l'ADC
-  void assignation_valeurs_converties();
-  void test_assignation_valeurs_converties();
+    // Methode pour faire la conversion des valeurs lues dans l'ADC
+    void assignation_valeurs_converties();
+    void test_assignation_valeurs_converties();
 
-  // Metdode de Test des valeurs lues dans les channel
-  void test_channel();
+    // Metdode de Test des valeurs lues dans les channel
+    void test_channel();
 
-  void correctionValeur();
+    void correctionValeur();
 
-  void checkUniteAdc();
+    void checkUniteAdc();
 
-  double get_SECURITY_MAX_CURRENT();
-  double get_courant_max;
-  volatile int get_state_power();
+    double get_SECURITY_MAX_CURRENT();
+    double get_courant_max;
+    volatile int get_state_power();
 
-  void CorrectionValeur();
+    void CorrectionValeur();
 
-  void changerEtatAlimDut(int etatAlimDut);
+    void changerEtatAlimDut(int etatAlimDut);
 
-  void test_dut();
+    void test_dut();
 
-  courantUnit checkUnitsAdc();
+    courantUnit checkUnitsAdc();
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -295,33 +295,31 @@ amperageMax COURANT_MAX;
 /////////////////////////////////////////////////////////////////////////////////////////
 void setup()
 {
-  
+
   // Ouverture du port Serial pour l'affichage console du résultat de la conversion
   Serial.begin(115200);
 
   SPI.begin();
+  //  SPI.begin(CSMUX1);
+  //  SPI.begin(CSMUX2);
+  //  SPI.begin(CSMUX3);
+  //  SPI.begin(CSMUX4);
+
   SPI.setClockDivider(48);    // Fréquence d'horloge de 1MHz
+
   SPI.setBitOrder(MSBFIRST);  // Most Significant Bit First (Arduino.org pour plus de détails)
   SPI.setDataMode(SPI_MODE0); // SPI Mode_0
 
 
   // Initialisation des sorties Chip Select
-  digitalWrite(CSADC1, HIGH);
   digitalWrite(CSMUX1, HIGH);
-  digitalWrite(CSADC2, HIGH);
   digitalWrite(CSMUX2, HIGH);
-  digitalWrite(CSADC3, HIGH);
   digitalWrite(CSMUX3, HIGH);
-  digitalWrite(CSADC4, HIGH);
   digitalWrite(CSMUX4, HIGH);
 
-  pinMode(CSADC1, OUTPUT);
   pinMode(CSMUX1, OUTPUT);
-  pinMode(CSADC2, OUTPUT);
   pinMode(CSMUX2, OUTPUT);
-  pinMode(CSADC3, OUTPUT);
   pinMode(CSMUX3, OUTPUT);
-  pinMode(CSADC4, OUTPUT);
   pinMode(CSMUX4, OUTPUT);
 
   // Initialisation des sorties de veille/éveil des produits CMD_ADC_DUT
@@ -353,13 +351,13 @@ void setup()
 
   // while (!SerialUSB)
   // {
-  //   // SerialUSB.println("wait for serial port to connect. Needed for native USB"); // 
-  //   //Serial.println("wait for serial port to connect. Needed for native USB"); // 
+  //   // SerialUSB.println("wait for serial port to connect. Needed for native USB"); //
+  //   //Serial.println("wait for serial port to connect. Needed for native USB"); //
   // }
 
   Timer2.getAvailable().attachInterrupt(HANDLER_CURRENT_MAX).setFrequency(10).start();
 
-  
+
   //Serial.println("Designed and developed by Robin Carriou & Vincent Bougouin");
 }
 
@@ -406,8 +404,8 @@ void loop()
   COURANT_MAX.amax = 10.0;
 
   /**
-     *      BOUCLE WHILE A METTRE ICI 
-     */
+            BOUCLE WHILE A METTRE ICI
+  */
   //Serial.println("\n\n\t\t*** DEBUT BOUCLE WHILE ***");
 
   boolean quitter = false;
@@ -568,19 +566,80 @@ void loop()
   //   // }
   // }
 
-  SelectChannel(0);
-  delay(150);
-  SelectChannel(0);
-  delay(150);
-  dut1.set_channel_UI(SpiReadChannelADC1());
-  dut2.set_channel_NO(SpiReadChannelADC2());
-  dut4.set_channel_UI(SpiReadChannelADC3());
-  dut5.set_channel_NO(SpiReadChannelADC4());
+  long dut1_channel_UI;
+  long dut1_channel_MI;
+  long dut1_channel_I;
+  long dut1_channel_PWR_DUT;
 
-  SelectChannel(1);
-  delay(150)
+  long dut2_channel_UI;
+  long dut2_channel_MI;
+  long dut2_channel_I;
+  long dut2_channel_PWR_DUT;
+
+  long dut3_channel_UI;
+  long dut3_channel_MI;
+  long dut3_channel_I;
+  long dut3_channel_PWR_DUT;
+
+  long dut4_channel_UI;
+  long dut4_channel_MI;
+  long dut4_channel_I;
+  long dut4_channel_PWR_DUT;
+
+  long dut5_channel_UI;
+  long dut5_channel_MI;
+  long dut5_channel_I;
+  long dut5_channel_PWR_DUT;
+
+  long dut6_channel_UI;
+  long dut6_channel_MI;
+  long dut6_channel_I;
+  long dut6_channel_PWR_DUT;
+
+  for (int yeye = 0; yeye < 8; yeye++)
+  {
+    long a;
+    SelectChannel(yeye);
+    delay(150);
+    a = SpiReadChannelADC4();
+    Serial.println();
+    Serial.print(yeye);
+    Serial.print("  ");
+    Serial.print(a);
+    Serial.println();
+
+    if(yeye == 3)
+    {
+      dut6.set_channel_MI(a);
+      Serial.println(dut6.get_channel_MI());
+    }
+
+  }
+  SelectChannel(0);
+  delay(140);
+  //
+  //  //  SelectChannelADC1(0);
+  //  //  SelectChannelADC2(0);
+  //  //  SelectChannelADC3(0);
+  //  //  SelectChannelADC4(0);
+  //    dut1_channel_UI = SpiReadChannelADC1();
+  //    dut4_channel_UI = SpiReadChannelADC3();
+  dut1.set_channel_UI(SpiReadChannelADC1());
+  dut4.set_channel_UI(SpiReadChannelADC3());
+  //
   SelectChannel(1);
   delay(150);
+  //
+  //  //  SelectChannelADC1(1);
+  //  //  SelectChannelADC2(1);
+  //  //  SelectChannelADC3(1);
+  //  //  SelectChannelADC4(1);
+  //
+  //    dut1_channel_MI = SpiReadChannelADC1();
+  //    dut2_channel_PWR_DUT = SpiReadChannelADC2();
+  //    dut4_channel_MI = SpiReadChannelADC3();
+  //    dut5_channel_PWR_DUT = SpiReadChannelADC4();
+  //
   dut1.set_channel_MI(SpiReadChannelADC1());
   dut2.set_channel_PWR_DUT(SpiReadChannelADC2());
   dut4.set_channel_MI(SpiReadChannelADC3());
@@ -588,56 +647,194 @@ void loop()
 
   SelectChannel(2);
   delay(150);
-  SelectChannel(2);
-  delay(150);
+  //  //
+  //  //  SelectChannelADC1(2);
+  //  //  SelectChannelADC2(2);
+  //  //  SelectChannelADC3(2);
+  //  //  SelectChannelADC4(2);
+  //
+  //    dut1_channel_I = SpiReadChannelADC1();
+  //    dut3_channel_UI = SpiReadChannelADC2();
+  //    dut4_channel_I = SpiReadChannelADC3();
+  //    dut6_channel_UI = SpiReadChannelADC4();
+  //
   dut1.set_channel_I(SpiReadChannelADC1());
   dut3.set_channel_UI(SpiReadChannelADC2());
   dut4.set_channel_I(SpiReadChannelADC3());
   dut6.set_channel_UI(SpiReadChannelADC4());
+  //
+  SelectChannel(3);
+  delay(150);
+  //  //  SelectChannelADC1(3);
+  //  //  SelectChannelADC2(3);
+  //  //  SelectChannelADC3(3);
+  //  //  SelectChannelADC4(3);
+  //    dut3_channel_MI = SpiReadChannelADC2();
+  //    dut6_channel_MI = SpiReadChannelADC4();
 
-  SelectChannel(3);
-  delay(150);
-  SelectChannel(3);
-  delay(150);
   dut1.set_channel_NO(SpiReadChannelADC1());
   dut3.set_channel_MI(SpiReadChannelADC2());
   dut4.set_channel_NO(SpiReadChannelADC3());
-  dut6.set_channel_MI(SpiReadChannelADC4());
-
+//  dut6.set_channel_MI(SpiReadChannelADC4());
+//  dut6.set_channel_MI(SpiReadChannelADC4());
+//  dut6.set_channel_MI(SpiReadChannelADC4());
+  //
   SelectChannel(4);
   delay(150);
-  SelectChannel(4);
-  delay(150);
+  //
+  //  //  SelectChannelADC1(4);
+  //  //  SelectChannelADC2(4);
+  //  //  SelectChannelADC3(4);
+  //  //  SelectChannelADC4(4);
+  //    dut1_channel_PWR_DUT = SpiReadChannelADC1();
+  //    dut3_channel_I = SpiReadChannelADC2();
+  //    dut4_channel_PWR_DUT = SpiReadChannelADC3();
+  //    dut6_channel_I = SpiReadChannelADC4();
+  //  //
   dut1.set_channel_PWR_DUT(SpiReadChannelADC1());
   dut3.set_channel_I(SpiReadChannelADC2());
   dut4.set_channel_PWR_DUT(SpiReadChannelADC3());
   dut6.set_channel_I(SpiReadChannelADC4());
-
+  //
   SelectChannel(5);
   delay(150);
-  SelectChannel(5);
-  delay(150);
+  //  //
+  //  //  SelectChannelADC1(5);
+  //  //  SelectChannelADC2(5);
+  //  //  SelectChannelADC3(5);
+  //  //  SelectChannelADC4(5);
+  //  dut2_channel_UI = SpiReadChannelADC1();
+  ////  dut3_channel_NO = SpiReadChannelADC2();
+  //  dut5_channel_UI = SpiReadChannelADC3();
+  //  dut6_channel_PWR_DUT = SpiReadChannelADC4();
+  //
   dut2.set_channel_UI(SpiReadChannelADC1());
   dut3.set_channel_NO(SpiReadChannelADC2());
   dut5.set_channel_UI(SpiReadChannelADC3());
   dut6.set_channel_PWR_DUT(SpiReadChannelADC4());
-
+  //  //
   SelectChannel(6);
   delay(150);
-  SelectChannel(6);
-  delay(150);
+  //  //
+  //  //  SelectChannelADC1(6);
+  //  //  SelectChannelADC2(6);
+  //  //  SelectChannelADC3(6);
+  //  //  SelectChannelADC4(6);
+  //  dut2_channel_MI = SpiReadChannelADC1();
+  //  dut3_channel_PWR_DUT = SpiReadChannelADC2();
+  //  dut5_channel_MI = SpiReadChannelADC3();
+  //  dut6_channel_MI = SpiReadChannelADC4();
+  //
   dut2.set_channel_MI(SpiReadChannelADC1());
   dut3.set_channel_PWR_DUT(SpiReadChannelADC2());
   dut5.set_channel_MI(SpiReadChannelADC3());
   dut6.set_channel_MI(SpiReadChannelADC4());
+  //  //
+  SelectChannel(7);
+  delay(150);
+  //  SelectChannelADC1(7);
+  //  SelectChannelADC2(7);
+  //  SelectChannelADC3(7);
+  //  SelectChannelADC4(7);
+  //  dut2_channel_I = SpiReadChannelADC1();
+  //  dut5_channel_I = SpiReadChannelADC3();
 
-  SelectChannel(7);
-  delay(150);
-  SelectChannel(7);
-  delay(150);
   dut2.set_channel_I(SpiReadChannelADC1());
   dut5.set_channel_I(SpiReadChannelADC3());
 
+  //      Serial.println(" ADC1 ");
+  //      for (int i = 0; i < 8; i++) {
+  //        long a;
+  //        SelectChannel(i);
+  //        delay(150);
+  //        a = SpiReadChannelADC1();
+  //        Serial.println();
+  //        Serial.print(i);
+  //        Serial.print("  ");
+  //        Serial.print(a);
+  //        Serial.println();
+  //      }
+
+  //    Serial.println(" ADC2 ");
+  //    for (int i = 0; i < 8; i++) {
+  //      long a;
+  //      SelectChannel(i);
+  //      delay(150);
+  //      a = SpiReadChannelADC2();
+  //      Serial.println();
+  //      Serial.print(i);
+  //      Serial.print("  ");
+  //      Serial.print(a);
+  //      Serial.println();
+  //    }
+  //  //
+  //      Serial.println(" ADC3 ");
+  //      for (int i = 0; i < 8; i++) {
+  //        long a;
+  //        SelectChannel(i);
+  //        delay(150);
+  //        a = SpiReadChannelADC3();
+  //        Serial.println();
+  //        Serial.print(i);
+  //        Serial.print("  ");
+  //        Serial.print(a);
+  //        Serial.println();
+  //
+  //      }
+  //
+  //    Serial.println(" ADC4 ");
+  //    for (int i = 0; i < 8; i++) {
+  //      long a;
+  //      SelectChannel(i);
+  //      delay(150);
+  //      a = SpiReadChannelADC4();
+  //      Serial.println();
+  //      Serial.print(i);
+  //      Serial.print("  ");
+  //      Serial.print(a);
+  //      Serial.println();
+  //    }
+
+
+
+
+  //
+  //  Serial.println("\nDUT 1");
+  //  Serial.println(dut1_channel_UI);
+  //  Serial.println(dut1_channel_MI);
+  //  Serial.println(dut1_channel_I);
+  //  Serial.println(dut1_channel_PWR_DUT);
+  //
+  //  Serial.println("\nDUT 2");
+  //  Serial.println(dut2_channel_UI);
+  //  Serial.println(dut2_channel_MI);
+  //  Serial.println(dut2_channel_I);
+  //  Serial.println(dut2_channel_PWR_DUT);
+  //
+  //  Serial.println("\nDUT 3");
+  //  Serial.println(dut3_channel_UI);
+  //  Serial.println(dut3_channel_MI);
+  //  Serial.println(dut3_channel_I);
+  //  Serial.println(dut3_channel_PWR_DUT);
+  //
+  //  Serial.println("\nDUT 4");
+  //  Serial.println(dut4_channel_UI);
+  //  Serial.println(dut4_channel_MI);
+  //  Serial.println(dut4_channel_I);
+  //  Serial.println(dut4_channel_PWR_DUT);
+  //
+  //  Serial.println("\nDUT 5");
+  //  Serial.println(dut5_channel_UI);
+  //  Serial.println(dut5_channel_MI);
+  //  Serial.println(dut5_channel_I);
+  //  Serial.println(dut5_channel_PWR_DUT);
+  //
+  //  Serial.println("\nDUT 6");
+  //  Serial.println(dut6_channel_UI);
+  //  Serial.println(dut6_channel_MI);
+  //  Serial.println(dut6_channel_I);
+  //  Serial.println(dut6_channel_PWR_DUT);
+  //
   dut1.test_channel();
   dut2.test_channel();
   dut3.test_channel();
@@ -804,16 +1001,16 @@ float conversion_channel_power_out(long result)
   return power_out;
 }
 
-void CS_STATE(int STATE)
+void CS_MUX(int STATE)
 {
   int CSADC_channel[4] = {CSADC1, CSADC2, CSADC3, CSADC4};
   int CSMUX_channel[4] = {CSMUX1, CSMUX2, CSMUX3, CSMUX4};
 
   for (unsigned char i = 0; i < 4; i++)
   {
-    digitalWrite(CSADC_channel[i], STATE); // CSADC à 1, pas de sortie
+    digitalWrite(CSADC_channel[i], !STATE); // CSADC à 1, pas de sortie
 
-    digitalWrite(CSMUX_channel[i], STATE); 
+    digitalWrite(CSMUX_channel[i], STATE);
   }
 }
 
@@ -821,22 +1018,21 @@ void CS_STATE(int STATE)
 /////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////FONCTION SELECTION CHANNEL ////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
-/*Typically, CSADC and CSMUX are tied together  
-    SCK and CLK are tied together and driven with a common clock signal. 
-    
-    During channel selection, CSMUX is HIGH. Data is shifted into the DIN pin on 
-    the rising edge of CLK, see Figure 4. Table 3 shows the bit combinations for 
-    channel selection. 
-    
-    In order to enable the multiplexer output, CSMUX must be pulled LOW. 
-    The multiplexer should be programmed after the previous conversion is complete. 
-    
+/*Typically, CSADC and CSMUX are tied together
+    SCK and CLK are tied together and driven with a common clock signal.
+
+    During channel selection, CSMUX is HIGH. Data is shifted into the DIN pin on
+    the rising edge of CLK, see Figure 4. Table 3 shows the bit combinations for
+    channel selection.
+
+    In order to enable the multiplexer output, CSMUX must be pulled LOW.
+    The multiplexer should be programmed after the previous conversion is complete.
+
     In order to guarantee the conversion is complete, the multiplexer addressing should
     be delayed a minimum tCONV (approximately 133ms for a 60Hz notch) after the data out is read.
-
-    While the multiplexer is being programmed, the ADC is in the sleep state. 
-    Once the MUX addressing is complete, the data from the preceding conversion can be read. 
-    A new conversion cycle is initiated following the data read cycle with the analog 
+    While the multiplexer is being programmed, the ADC is in the sleep state.
+    Once the MUX addressing is complete, the data from the preceding conversion can be read.
+    A new conversion cycle is initiated following the data read cycle with the analog
     input tied to the newly selected channel.
 */
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -844,33 +1040,68 @@ void CS_STATE(int STATE)
 /////////////////////////////////////////////////////////////////////////////////////////
 void SelectChannel(int n)
 {
+  //  // Tableau des Codes Hexa sélection de channel
+  //  int channel[8] = {0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
+  //
+  //  // Chip Select à l'état haut pour la sélection du channel
+  //  digitalWrite(CSADC1, HIGH); // CSADC à 1, pas de sortie
+  //  digitalWrite(CSADC2, HIGH);
+  //  digitalWrite(CSADC3, HIGH);
+  //  digitalWrite(CSADC4, HIGH);
+  //
+  //  digitalWrite(CSMUX1, HIGH); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
+  //  digitalWrite(CSMUX2, HIGH);
+  //  digitalWrite(CSMUX3, HIGH);
+  //  digitalWrite(CSMUX4, HIGH);
+  //
+  //  // Envoie SPI de l'adresse MUX pour le channel souhaité
+  //  SPI.transfer(channel[n]);
+  //
+  //  // On remet tous les CSMUX à 0 pour les connecter en interne à l'ADC
+  //  digitalWrite(CSADC1, HIGH);
+  //  digitalWrite(CSADC2, HIGH);
+  //  digitalWrite(CSADC3, HIGH);
+  //  digitalWrite(CSADC4, HIGH);
+  //
+  //  digitalWrite(CSMUX1, LOW);
+  //  digitalWrite(CSMUX2, LOW);
+  //  digitalWrite(CSMUX3, LOW);
+  //  digitalWrite(CSMUX4, LOW);
+
+
+
   // Tableau des Codes Hexa sélection de channel
-  int channel[8] = {0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
+  int channel[8] = {0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F}; //
+  int CSADC_channel[4] = {CSADC1, CSADC2, CSADC3, CSADC4};
+  int CSMUX_channel[4] = {CSMUX1, CSMUX2, CSMUX3, CSMUX4};
 
-  // Chip Select à l'état haut pour la sélection du channel
-  digitalWrite(CSADC1, HIGH); // CSADC à 1, pas de sortie
-  digitalWrite(CSADC2, HIGH);
-  digitalWrite(CSADC3, HIGH);
-  digitalWrite(CSADC4, HIGH);
+  for (unsigned char i = 0; i < 4; i++)
+  {
+    // Chip Select à l'état haut pour la sélection du channel
+    digitalWrite(CSMUX_channel[i], LOW);
 
-  digitalWrite(CSMUX1, HIGH); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
-  digitalWrite(CSMUX2, HIGH);
-  digitalWrite(CSMUX3, HIGH);
-  digitalWrite(CSMUX4, HIGH);
+    digitalWrite(CSMUX_channel[i], HIGH); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
 
-  // Envoie SPI de l'adresse MUX pour le channel souhaité
-  SPI.transfer(channel[n]);
+    // Envoie SPI de l'adresse MUX pour le channel souhaité
+    SPI.transfer(channel[n]);
 
-  // On remet tous les CSMUX à 0 pour les connecter en interne à l'ADC
-  digitalWrite(CSADC1, HIGH);
-  digitalWrite(CSADC2, HIGH);
-  digitalWrite(CSADC3, HIGH);
-  digitalWrite(CSADC4, HIGH);
+    // On remet tous les CSMUX à 0 pour les connecter en interne à l'ADC
+    digitalWrite(CSMUX_channel[i], LOW);
 
-  digitalWrite(CSMUX1, LOW);
-  digitalWrite(CSMUX2, LOW);
-  digitalWrite(CSMUX3, LOW);
-  digitalWrite(CSMUX4, LOW);
+
+    for (unsigned count = 0; count < 24; count++)
+      SPI.transfer(0);
+    //    digitalWrite(CSADC_channel[i], HIGH); // CSADC à 1, pas de sortie
+    //    digitalWrite(CSMUX_channel[i], LOW); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
+  }
+
+  for (unsigned char i = 0; i < 4; i++)
+  {
+    // Chip Select à l'état haut pour la sélection du channel
+    digitalWrite(CSMUX_channel[i], HIGH);
+  }
+
+
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -879,32 +1110,27 @@ void SelectChannel(int n)
 void SelectChannelADC1(int n)
 {
   // Tableau des Codes Hexa sélection de channel
-  int channel[8]={0x08,0x09,0x0A,0x0B,0x0C,0x0D,0x0E,0x0F};
-  
+  int channel[8] = {0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
+
   // Chip Select à l'état haut pour la sélection du channel
-  digitalWrite(CSADC1, HIGH); // CSADC à 1, pas de sortie
-  digitalWrite(CSADC2, HIGH);
-  digitalWrite(CSADC3, HIGH);
-  digitalWrite(CSADC4, HIGH);
-  
+
+
   digitalWrite(CSMUX1, HIGH); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
   digitalWrite(CSMUX2, LOW);
   digitalWrite(CSMUX3, LOW);
   digitalWrite(CSMUX4, LOW);
-  
+
   // Envoie SPI de l'adresse MUX pour le channel souhaité
   SPI.transfer(channel[n]);
-  
+
   // On remet tous les CSMUX à 0 pour les connecter en interne à l'ADC
-  digitalWrite(CSADC1, HIGH);
-  digitalWrite(CSADC2, HIGH);
-  digitalWrite(CSADC3, HIGH);
-  digitalWrite(CSADC4, HIGH);
-  
+
   digitalWrite(CSMUX1, LOW);
   digitalWrite(CSMUX2, LOW);
   digitalWrite(CSMUX3, LOW);
   digitalWrite(CSMUX4, LOW);
+
+  delay(150);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -913,32 +1139,23 @@ void SelectChannelADC1(int n)
 void SelectChannelADC2(int n)
 {
   // Tableau des Codes Hexa sélection de channel
-  int channel[8]={0x08,0x09,0x0A,0x0B,0x0C,0x0D,0x0E,0x0F};
-  
-  // Chip Select à l'état haut pour la sélection du channel
-  digitalWrite(CSADC1, HIGH); // CSADC à 1, pas de sortie
-  digitalWrite(CSADC2, HIGH);
-  digitalWrite(CSADC3, HIGH);
-  digitalWrite(CSADC4, HIGH);
-  
+  int channel[8] = {0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
+
+
   digitalWrite(CSMUX1, LOW); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
   digitalWrite(CSMUX2, HIGH);
   digitalWrite(CSMUX3, LOW);
   digitalWrite(CSMUX4, LOW);
-  
+
   // Envoie SPI de l'adresse MUX pour le channel souhaité
   SPI.transfer(channel[n]);
-  
-  // On remet tous les CSMUX à 0 pour les connecter en interne à l'ADC
-  digitalWrite(CSADC1, HIGH);
-  digitalWrite(CSADC2, HIGH);
-  digitalWrite(CSADC3, HIGH);
-  digitalWrite(CSADC4, HIGH);
-  
+
   digitalWrite(CSMUX1, LOW);
   digitalWrite(CSMUX2, LOW);
   digitalWrite(CSMUX3, LOW);
   digitalWrite(CSMUX4, LOW);
+
+  delay(150);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -947,32 +1164,24 @@ void SelectChannelADC2(int n)
 void SelectChannelADC3(int n)
 {
   // Tableau des Codes Hexa sélection de channel
-  int channel[8]={0x08,0x09,0x0A,0x0B,0x0C,0x0D,0x0E,0x0F};
-  
-  // Chip Select à l'état haut pour la sélection du channel
-  digitalWrite(CSADC1, HIGH); // CSADC à 1, pas de sortie
-  digitalWrite(CSADC2, HIGH);
-  digitalWrite(CSADC3, HIGH);
-  digitalWrite(CSADC4, HIGH);
-  
+  int channel[8] = {0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
+
+
   digitalWrite(CSMUX1, LOW); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
   digitalWrite(CSMUX2, LOW);
   digitalWrite(CSMUX3, HIGH);
   digitalWrite(CSMUX4, LOW);
-  
+
   // Envoie SPI de l'adresse MUX pour le channel souhaité
   SPI.transfer(channel[n]);
-  
-  // On remet tous les CSMUX à 0 pour les connecter en interne à l'ADC
-  digitalWrite(CSADC1, HIGH);
-  digitalWrite(CSADC2, HIGH);
-  digitalWrite(CSADC3, HIGH);
-  digitalWrite(CSADC4, HIGH);
-  
+
+
   digitalWrite(CSMUX1, LOW);
   digitalWrite(CSMUX2, LOW);
   digitalWrite(CSMUX3, LOW);
   digitalWrite(CSMUX4, LOW);
+
+  delay(150);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -981,32 +1190,24 @@ void SelectChannelADC3(int n)
 void SelectChannelADC4(int n)
 {
   // Tableau des Codes Hexa sélection de channel
-  int channel[8]={0x08,0x09,0x0A,0x0B,0x0C,0x0D,0x0E,0x0F};
-  
-  // Chip Select à l'état haut pour la sélection du channel
-  digitalWrite(CSADC1, HIGH); // CSADC à 1, pas de sortie
-  digitalWrite(CSADC2, HIGH);
-  digitalWrite(CSADC3, HIGH);
-  digitalWrite(CSADC4, HIGH);
-  
+  int channel[8] = {0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
+
+
+
   digitalWrite(CSMUX1, LOW); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
   digitalWrite(CSMUX2, LOW);
   digitalWrite(CSMUX3, LOW);
   digitalWrite(CSMUX4, HIGH);
-  
+
   // Envoie SPI de l'adresse MUX pour le channel souhaité
   SPI.transfer(channel[n]);
-  
-  // On remet tous les CSMUX à 0 pour les connecter en interne à l'ADC
-  digitalWrite(CSADC1, HIGH);
-  digitalWrite(CSADC2, HIGH);
-  digitalWrite(CSADC3, HIGH);
-  digitalWrite(CSADC4, HIGH);
-  
+
   digitalWrite(CSMUX1, LOW);
   digitalWrite(CSMUX2, LOW);
   digitalWrite(CSMUX3, LOW);
   digitalWrite(CSMUX4, LOW);
+
+  delay(150);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -1014,27 +1215,20 @@ void SelectChannelADC4(int n)
 /////////////////////////////////////////////////////////////////////////////////////////
 long SpiReadChannelADC1(void)
 {
-   /**
-   * fonction pour lire le bus SPI de l'ADC 1 
-   */
+  /**
+    fonction pour lire le bus SPI de l'ADC 1
+  */
   // Variable pour sauvegarder le résultat de la conversion
   long result = 0;
 
-  digitalWrite(CSADC1, LOW);
   digitalWrite(CSMUX1, LOW);
-  
-  digitalWrite(CSADC2, HIGH);
   digitalWrite(CSMUX2, HIGH);
-  
-  digitalWrite(CSADC3, HIGH);
   digitalWrite(CSMUX3, HIGH);
-  
-  digitalWrite(CSADC4, HIGH);
   digitalWrite(CSMUX4, HIGH);
 
   // Attente de la fin de conversion
   // Observation du passage de MISO à zéro
-  while (MISO == HIGH);//tourne dans le vide tant que MISO n'est pas égale à 0 
+  while (MISO == HIGH);//tourne dans le vide tant que MISO n'est pas égale à 0
 
   // Récupération des trois octets du résultat
   // Récupération de l'octet B1
@@ -1049,18 +1243,18 @@ long SpiReadChannelADC1(void)
   result = 0x0fffff & result;             //SerialUSB.println(result,BIN);
 
   // On termine la conversion en remettant le chip select à l'état haut
-  digitalWrite(CSADC1, HIGH);
-  digitalWrite(CSADC2, HIGH);
-  digitalWrite(CSADC3, HIGH);
-  digitalWrite(CSADC4, HIGH);
-  
-  digitalWrite(CSMUX1, HIGH); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
+
+  digitalWrite(CSMUX1, HIGH);
   digitalWrite(CSMUX2, HIGH);
   digitalWrite(CSMUX3, HIGH);
   digitalWrite(CSMUX4, HIGH);
 
+
+  delay(50);
+
   // Renvoie du résultat
   return (result);
+
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -1068,15 +1262,14 @@ long SpiReadChannelADC1(void)
 /////////////////////////////////////////////////////////////////////////////////////////
 long SpiReadChannelADC2(void)
 {
-  
+
   // Variable pour sauvegarder le résultat de la conversion
   long result = 0;
 
-  digitalWrite(CSADC1, HIGH);
-  digitalWrite(CSADC2, LOW);
+  digitalWrite(CSMUX1, HIGH);
   digitalWrite(CSMUX2, LOW);
-  digitalWrite(CSADC3, HIGH);
-  digitalWrite(CSADC4, HIGH);
+  digitalWrite(CSMUX3, HIGH);
+  digitalWrite(CSMUX4, HIGH);
 
   // Attente de la fin de conversion
   // Observation du passage de MISO à zéro
@@ -1096,12 +1289,7 @@ long SpiReadChannelADC2(void)
   result = 0x0fffff & result;             //SerialUSB.println(result,BIN);
 
   // On termine la conversion en remettant le chip select à l'état haut
-  digitalWrite(CSADC1, HIGH);
-  digitalWrite(CSADC2, HIGH);
-  digitalWrite(CSADC3, HIGH);
-  digitalWrite(CSADC4, HIGH);
-  
-  digitalWrite(CSMUX1, HIGH); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
+  digitalWrite(CSMUX1, HIGH);
   digitalWrite(CSMUX2, HIGH);
   digitalWrite(CSMUX3, HIGH);
   digitalWrite(CSMUX4, HIGH);
@@ -1115,15 +1303,14 @@ long SpiReadChannelADC2(void)
 /////////////////////////////////////////////////////////////////////////////////////////
 long SpiReadChannelADC3(void)
 {
-  
+
   // Variable pour sauvegarder le résultat de la conversion
   long result = 0;
 
-  digitalWrite(CSADC1, HIGH);
-  digitalWrite(CSADC2, HIGH);
-  digitalWrite(CSADC3, LOW);
+  digitalWrite(CSMUX1, HIGH);
+  digitalWrite(CSMUX2, HIGH);
   digitalWrite(CSMUX3, LOW);
-  digitalWrite(CSADC4, HIGH);
+  digitalWrite(CSMUX4, HIGH);
 
   // Attente de la fin de conversion
   // Observation du passage de MISO à zéro
@@ -1143,17 +1330,13 @@ long SpiReadChannelADC3(void)
   result = 0x0fffff & result;             //SerialUSB.println(result,BIN);
 
   // On termine la conversion en remettant le chip select à l'état haut
-  digitalWrite(CSADC1, HIGH);
-  digitalWrite(CSADC2, HIGH);
-  digitalWrite(CSADC3, HIGH);
-  digitalWrite(CSADC4, HIGH);
-  
-  digitalWrite(CSMUX1, HIGH); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
+  digitalWrite(CSMUX1, HIGH);
   digitalWrite(CSMUX2, HIGH);
   digitalWrite(CSMUX3, HIGH);
   digitalWrite(CSMUX4, HIGH);
 
   // Renvoie du résultat
+
   return (result);
 }
 
@@ -1162,18 +1345,17 @@ long SpiReadChannelADC3(void)
 /////////////////////////////////////////////////////////////////////////////////////////
 long SpiReadChannelADC4(void)
 {
-  
+
   /**
-   * Permet de lire les signaux envoyé par SPI par les ADC : 
-   * 
-   */
+     Permet de lire les signaux envoyé par SPI par les ADC :
+
+  */
   // Variable pour sauvegarder le résultat de la conversion
   long result = 0;
 
-  digitalWrite(CSADC1, HIGH);
-  digitalWrite(CSADC2, HIGH);
-  digitalWrite(CSADC3, HIGH);
-  digitalWrite(CSADC4, LOW);
+  digitalWrite(CSMUX1, HIGH);
+  digitalWrite(CSMUX2, HIGH);
+  digitalWrite(CSMUX3, HIGH);
   digitalWrite(CSMUX4, LOW);
 
   // Attente de la fin de conversion
@@ -1194,12 +1376,7 @@ long SpiReadChannelADC4(void)
   result = 0x0fffff & result;             //SerialUSB.println(result,BIN);
 
   // On termine la conversion en remettant le chip select à l'état haut
-  digitalWrite(CSADC1, HIGH);
-  digitalWrite(CSADC2, HIGH);
-  digitalWrite(CSADC3, HIGH);
-  digitalWrite(CSADC4, HIGH);
-
-  digitalWrite(CSMUX1, HIGH); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
+  digitalWrite(CSMUX1, HIGH);
   digitalWrite(CSMUX2, HIGH);
   digitalWrite(CSMUX3, HIGH);
   digitalWrite(CSMUX4, HIGH);
@@ -1208,8 +1385,8 @@ long SpiReadChannelADC4(void)
 }
 
 /**************************************************************************
-*                       Fonction pour vérifier le nombre de Cycle 
-Dernière modification 28/10/2019 à 14h07 par Aslam BARWANE
+                        Fonction pour vérifier le nombre de Cycle
+  Dernière modification 28/10/2019 à 14h07 par Aslam BARWANE
 *************************************************************************/
 short int verif_nb_cycle()
 {
@@ -1227,14 +1404,14 @@ short int verif_nb_cycle()
 }
 
 /**************************************************************************
-*                       Fonction pour Changer l'état de l'ACC 
-Dernière modification 28/10/2019 à 12h07 par Aslam BARWANE
+                        Fonction pour Changer l'état de l'ACC
+  Dernière modification 28/10/2019 à 12h07 par Aslam BARWANE
 *************************************************************************/
 void changerEtatACC(int etat)
 {
   /**
-   * Permet de change l'état de l'ACC
-   */
+     Permet de change l'état de l'ACC
+  */
   digitalWrite(CMD_ACC_DUT1, etat);
   digitalWrite(CMD_ACC_DUT2, etat);
   digitalWrite(CMD_ACC_DUT3, etat);
@@ -1247,8 +1424,8 @@ void changerEtatACC(int etat)
 }
 
 /**************************************************************************
-*                       Fonction pour l'envoi de La trame 
-Dernière modification 28/10/2019 à 12h07 par Aslam BARWANE
+                        Fonction pour l'envoi de La trame
+  Dernière modification 28/10/2019 à 12h07 par Aslam BARWANE
 *************************************************************************/
 void EnvoiTrame(Dut Adc1, Dut Adc2, Dut Adc3, Dut Adc4, Dut Adc5, Dut Adc6)
 /**
@@ -1261,145 +1438,145 @@ void EnvoiTrame(Dut Adc1, Dut Adc2, Dut Adc3, Dut Adc4, Dut Adc5, Dut Adc6)
 
   switch (Adc1.get_unite())
   {
-  case 0:
-    P[0] = Adc1.get_uW();
-    A[0] = Adc1.get_uA();
-    break;
+    case 0:
+      P[0] = Adc1.get_uW();
+      A[0] = Adc1.get_uA();
+      break;
 
-  case 1:
-    P[0] = Adc1.get_mW();
-    A[0] = Adc1.get_mA();
-    break;
+    case 1:
+      P[0] = Adc1.get_mW();
+      A[0] = Adc1.get_mA();
+      break;
 
-  case 2:
-    P[0] = Adc1.get_W();
-    A[0] = Adc1.get_A();
-    break;
+    case 2:
+      P[0] = Adc1.get_W();
+      A[0] = Adc1.get_A();
+      break;
 
-  default:
-    //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé pour DUT1");
-    P[0] = 0;
-    A[0] = 0;
-    break;
+    default:
+      //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé pour DUT1");
+      P[0] = 0;
+      A[0] = 0;
+      break;
   }
 
   switch (Adc2.get_unite())
   {
-  case 0:
-    P[1] = Adc2.get_uW();
-    A[1] = Adc2.get_uA();
-    break;
+    case 0:
+      P[1] = Adc2.get_uW();
+      A[1] = Adc2.get_uA();
+      break;
 
-  case 1:
-    P[1] = Adc2.get_mW();
-    A[1] = Adc2.get_mA();
-    break;
+    case 1:
+      P[1] = Adc2.get_mW();
+      A[1] = Adc2.get_mA();
+      break;
 
-  case 2:
-    P[1] = Adc2.get_W();
-    A[1] = Adc2.get_A();
-    break;
+    case 2:
+      P[1] = Adc2.get_W();
+      A[1] = Adc2.get_A();
+      break;
 
-  default:
-    //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé  pour DUT2");
-    P[1] = 0;
-    A[1] = 0;
-    break;
+    default:
+      //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé  pour DUT2");
+      P[1] = 0;
+      A[1] = 0;
+      break;
   }
 
   switch (Adc3.get_unite())
   {
-  case 0:
-    P[2] = Adc3.get_uW();
-    A[2] = Adc3.get_uA();
-    break;
+    case 0:
+      P[2] = Adc3.get_uW();
+      A[2] = Adc3.get_uA();
+      break;
 
-  case 1:
-    P[2] = Adc3.get_mW();
-    A[2] = Adc3.get_mA();
-    break;
+    case 1:
+      P[2] = Adc3.get_mW();
+      A[2] = Adc3.get_mA();
+      break;
 
-  case 2:
-    P[2] = Adc3.get_W();
-    A[2] = Adc3.get_A();
-    break;
+    case 2:
+      P[2] = Adc3.get_W();
+      A[2] = Adc3.get_A();
+      break;
 
-  default:
-    //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé pour DUT3");
-    P[2] = 0;
-    A[2] = 0;
-    break;
+    default:
+      //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé pour DUT3");
+      P[2] = 0;
+      A[2] = 0;
+      break;
   }
 
   switch (Adc4.get_unite())
   {
-  case 0:
-    P[3] = Adc4.get_uW();
-    A[3] = Adc4.get_uA();
-    break;
+    case 0:
+      P[3] = Adc4.get_uW();
+      A[3] = Adc4.get_uA();
+      break;
 
-  case 1:
-    P[3] = Adc4.get_mW();
-    A[3] = Adc4.get_mA();
-    break;
+    case 1:
+      P[3] = Adc4.get_mW();
+      A[3] = Adc4.get_mA();
+      break;
 
-  case 2:
-    P[3] = Adc4.get_W();
-    A[3] = Adc4.get_A();
-    break;
+    case 2:
+      P[3] = Adc4.get_W();
+      A[3] = Adc4.get_A();
+      break;
 
-  default:
-    //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé  pour DUT4");
-    P[3] = 0;
-    A[3] = 0;
-    break;
+    default:
+      //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé  pour DUT4");
+      P[3] = 0;
+      A[3] = 0;
+      break;
   }
 
   switch (Adc5.get_unite())
   {
-  case 0:
-    P[4] = Adc5.get_uW();
-    A[4] = Adc5.get_uA();
-    break;
+    case 0:
+      P[4] = Adc5.get_uW();
+      A[4] = Adc5.get_uA();
+      break;
 
-  case 1:
-    P[4] = Adc5.get_mW();
-    A[4] = Adc5.get_mA();
-    break;
+    case 1:
+      P[4] = Adc5.get_mW();
+      A[4] = Adc5.get_mA();
+      break;
 
-  case 2:
-    P[4] = Adc5.get_W();
-    A[4] = Adc5.get_A();
-    break;
+    case 2:
+      P[4] = Adc5.get_W();
+      A[4] = Adc5.get_A();
+      break;
 
-  default:
-    //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé pour DUT5");
-    P[4] = 0;
-    A[4] = 0;
-    break;
+    default:
+      //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé pour DUT5");
+      P[4] = 0;
+      A[4] = 0;
+      break;
   }
   switch (Adc6.get_unite())
   {
-  case 0:
-    P[5] = Adc6.get_uW();
-    A[5] = Adc6.get_uA();
-    break;
+    case 0:
+      P[5] = Adc6.get_uW();
+      A[5] = Adc6.get_uA();
+      break;
 
-  case 1:
-    P[5] = Adc6.get_mW();
-    A[5] = Adc6.get_mA();
-    break;
+    case 1:
+      P[5] = Adc6.get_mW();
+      A[5] = Adc6.get_mA();
+      break;
 
-  case 2:
-    P[5] = Adc6.get_W();
-    A[5] = Adc6.get_A();
-    break;
+    case 2:
+      P[5] = Adc6.get_W();
+      A[5] = Adc6.get_A();
+      break;
 
-  default:
-    //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé  pour DUT6");
-    P[5] = 0;
-    A[5] = 0;
-    break;
+    default:
+      //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé  pour DUT6");
+      P[5] = 0;
+      A[5] = 0;
+      break;
   }
 
   Serial.println("J'ai casé les valeurs dans le tableau\n\nJ'envois les valeurs dans le port Série");
@@ -1502,19 +1679,19 @@ void EnvoiTrame(Dut Adc1, Dut Adc2, Dut Adc3, Dut Adc4, Dut Adc5, Dut Adc6)
 }
 
 /**************************************************************************
-*                       CONSTRUCTEUR DE LA CLASSE DUT 
-Dernière modification 24/10/2019 à 13h15 par Aslam BARWANE
+                        CONSTRUCTEUR DE LA CLASSE DUT
+  Dernière modification 24/10/2019 à 13h15 par Aslam BARWANE
 *************************************************************************/
 Dut::Dut(String nomDut) : nom(nomDut), uA(0), mA(0), A(0), Vin(0),
-                          CMD_ACC_DUT(0), CMD_PWR_DUT(0), UI_PROT_STATE_DUT(0), flag_state_power(0),
-                          channel_UI(0), channel_MI(0), channel_I(0), channel_NO(0), channel_PWR_DUT(0),
-                          uW(0), mW(0), W(0)
+  CMD_ACC_DUT(0), CMD_PWR_DUT(0), UI_PROT_STATE_DUT(0), flag_state_power(0),
+  channel_UI(0), channel_MI(0), channel_I(0), channel_NO(0), channel_PWR_DUT(0),
+  uW(0), mW(0), W(0)
 {
 }
 
 /**************************************************************************
-*                           GETTER DE LA CLASSE DUT
-Dernière modification 24/10/2019 à 13h15 par Aslam BARWANE 
+                            GETTER DE LA CLASSE DUT
+  Dernière modification 24/10/2019 à 13h15 par Aslam BARWANE
 * ************************************************************************/
 String Dut::get_name()
 {
@@ -1612,8 +1789,8 @@ volatile int Dut::get_flag_state_power()
 }
 
 /**************************************************************************
-*                     METHODES DE LA CLASSE DUT 
-Dernière modification 24/10/2019 à 13h15 par Aslam BARWANE
+                      METHODES DE LA CLASSE DUT
+  Dernière modification 24/10/2019 à 13h15 par Aslam BARWANE
 * ************************************************************************/
 void Dut::set_A(double setter_A)
 {
@@ -1754,8 +1931,8 @@ void Dut::set_courant_max()
 }
 
 /**************************************************************************
-*                     METHODES DE LA CLASSE DUT 
-Dernière modification 24/10/2019 à 13h15 par Aslam BARWANE
+                      METHODES DE LA CLASSE DUT
+  Dernière modification 24/10/2019 à 13h15 par Aslam BARWANE
 * ************************************************************************/
 /*Methodes de conversion des valeurs lues dans l'ADC*/
 void Dut::assignation_valeurs_converties()
@@ -1842,10 +2019,8 @@ void Dut::test_channel()
 }
 
 /*Methode pour la mise en place d'un coefficient correcteur du mA et de l'A
-
-Dans la version 2016 du code, des offset était appliqué au code pour modifier des imprécisions de mesure vérifiées par experimentation.
+  Dans la version 2016 du code, des offset était appliqué au code pour modifier des imprécisions de mesure vérifiées par experimentation.
   Ceux ci sont appliqué dans cette fonction
-
   Dernière modification 24/10/2019 à 14h20 par Aslam BARWANE
 */
 void Dut::correctionValeur()
@@ -1904,9 +2079,9 @@ void Dut::checkUniteAdc()
 
 void state_CSADC(int etat)
 /**
- * Les 4 ADC du banc ont un multiplexeur integré, cette fonction nous permet de le set pour récuperer un channel en particulier de l'ADC
- * (les 4 channels à récuperer sont : tension d'entrée, courant en uA, mA, et A)
- */
+   Les 4 ADC du banc ont un multiplexeur integré, cette fonction nous permet de le set pour récuperer un channel en particulier de l'ADC
+   (les 4 channels à récuperer sont : tension d'entrée, courant en uA, mA, et A)
+*/
 {
   // Tableau des Codes Hexa sélection de channel
   int channel[8] = {0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F}; //
