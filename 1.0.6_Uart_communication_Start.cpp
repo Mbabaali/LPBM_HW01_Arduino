@@ -421,24 +421,24 @@ void loop()
      * ->la première lettre est un "p" : l'user a mis en pause l'acquisition : il faut donc....
      *
      */
-    get the new byte:
+    //get the new byte:
     char inChar = (char)SerialUSB.read();
     SerialUSB.print(inChar);
     Serial.print(inChar);
-    add it to the inputString:
+    //add it to the inputString:
     inputString += inChar;
-    if the incoming character is a newline, set a flag so the main loop can
-    do something about it:
+//    if the incoming character is a newline, set a flag so the main loop can
+   // do something about it:
     if (inChar == '\n') {
       finReception = true;
     }
     SerialUSB.println(inputString);
     Serial.println(inputString);
 
-    add it to the inputString:
+    //add it to the inputString:
     inputString += inChar;
-    if the incoming character is a newline, set a flag so the main loop can
-    do something about it:
+//    if the incoming character is a newline, set a flag so the main loop can
+//    do something about it:
     Serial.print("\n\n\tLa chaine de caractere vaut: ");
     Serial.println(inputString);
 
