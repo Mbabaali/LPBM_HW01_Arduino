@@ -1974,22 +1974,22 @@ void Dut::test_assignation_valeurs_converties()
   Serial.println(" ******");
 
   Serial.print("valeur dans uA : ");
-  Serial.println(uA);
+  Serial.println(get_uA());
 
   Serial.print("valeur dans mA : ");
-  Serial.println(mA);
+  Serial.println(get_mA());
 
   Serial.print("valeur dans A : ");
-  Serial.println(A);
+  Serial.println(get_A());
 
   Serial.print("valeur dans Vin : ");
-  Serial.println(Vin);
+  Serial.println(get_Vin());
 
   Serial.println("\tFin de lecture des assignastion des valeur du ");
-  Serial.print(nom);
+  Serial.print(get_name());
 
   Serial.print("valeur dans UNITE : ");
-  Serial.println(unite);
+  Serial.println(get_unite());
 }
 
 void Dut::test_channel()
@@ -2000,22 +2000,22 @@ void Dut::test_channel()
   Serial.println(" ******");
 
   Serial.print("channel_UI :");
-  Serial.println(channel_UI);
+  Serial.println(get_channel_UI());
 
   Serial.print("channel_MI : ");
-  Serial.println(channel_MI);
+  Serial.println(get_channel_MI());
 
   Serial.print("channel_I : ");
-  Serial.println(channel_I);
+  Serial.println(get_channel_I());
 
   Serial.print("channel_NO : ");
-  Serial.println(channel_NO);
+  Serial.println(get_channel_NO());
 
   Serial.print("channel_PWR_DUT : ");
-  Serial.println(channel_PWR_DUT);
+  Serial.println(get_channel_PWR_DUT());
 
   Serial.print("\tFIN TEST DES VALEURS LUES DANS LES CHANNEL du ");
-  Serial.print(nom);
+  Serial.print(get_name());
 }
 
 /*Methode pour la mise en place d'un coefficient correcteur du mA et de l'A
