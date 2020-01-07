@@ -596,25 +596,25 @@ void loop()
   long dut6_channel_I;
   long dut6_channel_PWR_DUT;
 
-  // for (int yeye = 0; yeye < 8; yeye++)
-  // {
-  //   long a;
-  //   SelectChannel(yeye);
-  //   delay(150);
-  //   a = SpiReadChannelADC4();
-  //   Serial.println();
-  //   Serial.print(yeye);
-  //   Serial.print("  ");
-  //   Serial.print(a);
-  //   Serial.println();
+  for (int yeye = 0; yeye < 8; yeye++)
+  {
+    long a;
+    SelectChannel(2);
+    delay(150);
+    a = SpiReadChannelADC1();
+    Serial.println();
+    Serial.print(yeye);
+    Serial.print("  ");
+    Serial.print(a);
+    Serial.println();
 
-  //   if(yeye == 3)
-  //   {
-  //     dut6.set_channel_MI(a);
-  //     Serial.println(dut6.get_channel_MI());
-  //   }
+    if(yeye == 3)
+    {
+      dut6.set_channel_MI(a);
+      Serial.println(dut6.get_channel_MI());
+    }
 
-  // }
+  }
   SelectChannel(0);
   delay(140);
   //
