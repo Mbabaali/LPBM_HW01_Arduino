@@ -596,25 +596,25 @@ void loop()
   long dut6_channel_I;
   long dut6_channel_PWR_DUT;
 
-  for (int yeye = 0; yeye < 8; yeye++)
-  {
-    long a;
-    SelectChannel(yeye);
-    delay(150);
-    a = SpiReadChannelADC4();
-    Serial.println();
-    Serial.print(yeye);
-    Serial.print("  ");
-    Serial.print(a);
-    Serial.println();
+  // for (int yeye = 0; yeye < 8; yeye++)
+  // {
+  //   long a;
+  //   SelectChannel(yeye);
+  //   delay(150);
+  //   a = SpiReadChannelADC4();
+  //   Serial.println();
+  //   Serial.print(yeye);
+  //   Serial.print("  ");
+  //   Serial.print(a);
+  //   Serial.println();
 
-    if(yeye == 3)
-    {
-      dut6.set_channel_MI(a);
-      Serial.println(dut6.get_channel_MI());
-    }
+  //   if(yeye == 3)
+  //   {
+  //     dut6.set_channel_MI(a);
+  //     Serial.println(dut6.get_channel_MI());
+  //   }
 
-  }
+  // }
   SelectChannel(0);
   delay(140);
   //
@@ -675,9 +675,7 @@ void loop()
   dut1.set_channel_NO(SpiReadChannelADC1());
   dut3.set_channel_MI(SpiReadChannelADC2());
   dut4.set_channel_NO(SpiReadChannelADC3());
-//  dut6.set_channel_MI(SpiReadChannelADC4());
-//  dut6.set_channel_MI(SpiReadChannelADC4());
-//  dut6.set_channel_MI(SpiReadChannelADC4());
+  dut6.set_channel_MI(SpiReadChannelADC4());
   //
   SelectChannel(4);
   delay(150);
@@ -711,8 +709,7 @@ void loop()
   dut2.set_channel_UI(SpiReadChannelADC1());
   dut3.set_channel_NO(SpiReadChannelADC2());
   dut5.set_channel_UI(SpiReadChannelADC3());
-  dut6.set_channel_PWR_DUT(SpiReadChannelADC4());
-  //  //
+
   SelectChannel(6);
   delay(150);
   //  //
@@ -728,7 +725,7 @@ void loop()
   dut2.set_channel_MI(SpiReadChannelADC1());
   dut3.set_channel_PWR_DUT(SpiReadChannelADC2());
   dut5.set_channel_MI(SpiReadChannelADC3());
-  dut6.set_channel_MI(SpiReadChannelADC4());
+  dut6.set_channel_PWR_DUT(SpiReadChannelADC4());
   //  //
   SelectChannel(7);
   delay(150);
