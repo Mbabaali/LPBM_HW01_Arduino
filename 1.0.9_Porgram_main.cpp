@@ -56,6 +56,9 @@ struct cycle
   long time_sleep;
   String time_awake_str;
   String time_sleep_str;
+
+  int nb_rep;
+  String nb_rep_str;
 };
 
 /*Structure pour stocker la valeur de l'amperage Maximala ne pas dépasser,
@@ -81,142 +84,142 @@ enum courantUnit
 
 class Dut
 {
-  private:
-    String nom;
-    double Vin = 0;
+private:
+  String nom;
+  double Vin = 0;
 
-    double uA = 0;
-    double mA = 0;
-    double A = 0;
+  double uA = 0;
+  double mA = 0;
+  double A = 0;
 
-    double SECURITY_MAX_CURRENT = 0;
+  double SECURITY_MAX_CURRENT = 0;
 
-    int CMD_ACC_DUT;
-    int CMD_PWR_DUT;
-    int UI_PROT_STATE_DUT;
+  int CMD_ACC_DUT;
+  int CMD_PWR_DUT;
+  int UI_PROT_STATE_DUT;
 
-    volatile int flag_state_power;
+  volatile int flag_state_power;
 
-    bool boutonAliementationDut = false;
+  bool boutonAliementationDut = false;
 
-    double signal_UI;
-    double signal_MI;
-    double signal_I;
-    double signal_PWR_DUT;
+  double signal_UI;
+  double signal_MI;
+  double signal_I;
+  double signal_PWR_DUT;
 
-    long channel_UI = 0;
-    long channel_MI = 0;
-    long channel_I = 0;
-    long channel_NO = 0;
-    long channel_PWR_DUT = 0;
+  long channel_UI = 0;
+  long channel_MI = 0;
+  long channel_I = 0;
+  long channel_NO = 0;
+  long channel_PWR_DUT = 0;
 
-    double uW = 0;
-    double mW = 0;
-    double W = 0;
+  double uW = 0;
+  double mW = 0;
+  double W = 0;
 
-    courantUnit unite;
+  courantUnit unite;
 
-    bool BOUTON_ON_DUT = false;
+  bool BOUTON_ON_DUT = false;
 
-  public:
-    /**************************************************************************
+public:
+  /**************************************************************************
                                CONSTRUCTEUR DE LA CLASSE DUT
        * ************************************************************************/
-    Dut(String nomDut);
+  Dut(String nomDut);
 
-    /**************************************************************************
+  /**************************************************************************
                                    GETTER DE LA CLASSE DUT
        * ************************************************************************/
 
-    double get_A();
-    double get_mA();
-    double get_uA();
-    double get_Vin();
+  double get_A();
+  double get_mA();
+  double get_uA();
+  double get_Vin();
 
-    double get_signal_UI();
-    double get_signal_MI();
-    double get_signal_I();
-    double get_signal_PWR_DUT();
+  double get_signal_UI();
+  double get_signal_MI();
+  double get_signal_I();
+  double get_signal_PWR_DUT();
 
-    long get_channel_UI();
-    long get_channel_MI();
-    long get_channel_I();
-    long get_channel_NO();
-    long get_channel_PWR_DUT();
+  long get_channel_UI();
+  long get_channel_MI();
+  long get_channel_I();
+  long get_channel_NO();
+  long get_channel_PWR_DUT();
 
-    double get_uW();
-    double get_mW();
-    double get_W();
+  double get_uW();
+  double get_mW();
+  double get_W();
 
-    String get_name();
+  String get_name();
 
-    volatile int get_flag_state_power();
+  volatile int get_flag_state_power();
 
-    courantUnit get_unite();
-    bool get_BOUTON_ON_DUT();
+  courantUnit get_unite();
+  bool get_BOUTON_ON_DUT();
 
-    /**************************************************************************
+  /**************************************************************************
                                    SETTER DE LA CLASSE DUT
        * ************************************************************************/
-    void set_A(double setter_A);
-    void set_mA(double setter_mA);
-    void set_uA(double setter_uA);
-    void set_Vin(double setter_Vin);
+  void set_A(double setter_A);
+  void set_mA(double setter_mA);
+  void set_uA(double setter_uA);
+  void set_Vin(double setter_Vin);
 
-    void set_signal_UI(double setter_signal_UI);
-    void set_signal_MI(double setter_signal_MI);
-    void set_signal_I(double setter_signal_I);
-    void set_signal_PWR_DUT(double setter_signal_PWR_DUT);
+  void set_signal_UI(double setter_signal_UI);
+  void set_signal_MI(double setter_signal_MI);
+  void set_signal_I(double setter_signal_I);
+  void set_signal_PWR_DUT(double setter_signal_PWR_DUT);
 
-    void set_channel_UI(long setter_channel_UI);
-    void set_channel_MI(long setter_channel_MI);
-    void set_channel_I(long setter_channel_I);
-    void set_channel_NO(long setter_channel_NO);
-    void set_channel_PWR_DUT(long setter_channel_PWR_DUT);
+  void set_channel_UI(long setter_channel_UI);
+  void set_channel_MI(long setter_channel_MI);
+  void set_channel_I(long setter_channel_I);
+  void set_channel_NO(long setter_channel_NO);
+  void set_channel_PWR_DUT(long setter_channel_PWR_DUT);
 
-    void set_uW(double setter_uW);
-    void set_mW(double setter_mW);
-    void set_W(double setter_W);
-    void set_unite(courantUnit setter_unite);
+  void set_uW(double setter_uW);
+  void set_mW(double setter_mW);
+  void set_W(double setter_W);
+  void set_unite(courantUnit setter_unite);
 
-    void set_SECURITY_MAX_CURRENT(double courant_max);
-    void set_courant_max();
-    void set_ACC_PWR_PROT(int CMD_ACC, int CMD_PWR, int UI_PROT_STATE);
-    void set_flag_state_power(volatile int flag_max_current_name_DUT);
-    void set_state_power(volatile int flag_max_current_name_DUT);
-    void set_boutonAliementationDut();
+  void set_SECURITY_MAX_CURRENT(double courant_max);
+  void set_courant_max();
+  void set_ACC_PWR_PROT(int CMD_ACC, int CMD_PWR, int UI_PROT_STATE);
+  void set_flag_state_power(volatile int flag_max_current_name_DUT);
+  void set_state_power(volatile int flag_max_current_name_DUT);
+  void set_boutonAliementationDut();
 
-    /**************************************************************************
+  /**************************************************************************
                            METHODE DE LA CLASSE DUT
        * ************************************************************************/
 
-    // float conversion_channel_A();
-    // double conversion_channel_microA();
-    // float conversion_channel_mA();
-    // float conversion_channel_PWR_DUT();
+  // float conversion_channel_A();
+  // double conversion_channel_microA();
+  // float conversion_channel_mA();
+  // float conversion_channel_PWR_DUT();
 
-    // Methode pour faire la conversion des valeurs lues dans l'ADC
-    void assignation_valeurs_converties();
-    void test_assignation_valeurs_converties();
+  // Methode pour faire la conversion des valeurs lues dans l'ADC
+  void assignation_valeurs_converties();
+  void test_assignation_valeurs_converties();
 
-    // Metdode de Test des valeurs lues dans les channel
-    void test_channel();
+  // Metdode de Test des valeurs lues dans les channel
+  void test_channel();
 
-    void correctionValeur();
+  void correctionValeur();
 
-    void checkUniteAdc();
+  void checkUniteAdc();
 
-    double get_SECURITY_MAX_CURRENT();
-    double get_courant_max;
-    volatile int get_state_power();
+  double get_SECURITY_MAX_CURRENT();
+  double get_courant_max;
+  volatile int get_state_power();
 
-    void CorrectionValeur();
+  void CorrectionValeur();
 
-    void changerEtatAlimDut(int etatAlimDut);
+  void changerEtatAlimDut(int etatAlimDut);
 
-    void test_dut();
+  void test_dut();
 
-    courantUnit checkUnitsAdc();
+  courantUnit checkUnitsAdc();
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -277,6 +280,7 @@ int f_acquisition = 1000;
 String conteneur = "";
 short int cycle_en_cours = 0;
 short int flag_cycle = 0;
+short int rep_en_cours = 1;
 
 // Drapeau de l'Etat des DUTs (false car le courant Max n'est pas dépassé)
 volatile int FLAG_CURRENT_MAX_DUT1 = false;
@@ -351,13 +355,16 @@ void setup()
   Serial.println("Low Power Bench Measurement VBRC-K8400");
   // SerialUSB.println("Low Power Bench Measurement VBRC-K8400");
 
+  COURANT_MAX.amax = 0;
+
+  Timer3.getAvailable().attachInterrupt(HANDLER_ACC).setFrequency(10).start();
   Timer2.getAvailable().attachInterrupt(HANDLER_CURRENT_MAX).setFrequency(10).start();
 
   while (!SerialUSB)
   {
-      //SerialUSB.println("wait for serial port to connect. main");               //
-      Serial.println("wait for serial port to connect. MAIN SERIAL.PRINTLN");
-       //
+    //SerialUSB.println("wait for serial port to connect. main");               //
+    Serial.println("wait for serial port to connect. MAIN SERIAL.PRINTLN");
+    //
   }
 
   Serial.println("Designed and developed by Robin Carriou & Vincent Bougouin");
@@ -412,160 +419,152 @@ void loop()
 
   boolean quitter = false;
 
-  while (SerialUSB.available() && !finReception)
+  while(SerialUSB.available()&&!finReception)
   {
-      /**
-   * Cette boucle s'active si l'arduino commence à recevoir des données sur son port uart (données envoyé par la pi). on receptionne les données sous forme
-   * de string (inputString), puis lorsque la reception est fini, on analyse la chaine de caractère. selon le format suivant :
-   * ->la première lettre est un s : l'user a "start" l'acquisition, on reçoit donc les paramètres de time_awake et time_sleep
-   * ->la première lettre est un "p" : l'user a mis en pause l'acquisition : il faut donc....
-   *
-   */
-      //get the new byte:
-      char inChar = (char)SerialUSB.read();
-      //SerialUSB.print(inChar);
-      //Serial.print(inChar);
-      //add it to the inputString:
-      inputString += inChar;
-      //    if the incoming character is a newline, set a flag so the main loop can
-      // do something about it:
-      if (inChar == '\n')
+    /**
+     * Cette boucle s'active si l'arduino commence à recevoir des données sur son port uart (données envoyé par la pi). on receptionne les données sous forme 
+     * de string (inputString), puis lorsque la reception est fini, on analyse la chaine de caractère. selon le format suivant :
+     * ->la première lettre est un s : l'user a "start" l'acquisition, on reçoit donc les paramètres de time_awake et time_sleep
+     * ->la première lettre est un "p" : l'user a mis en pause l'acquisition : il faut donc....
+     * 
+     */
+    // get the new byte:
+    char inChar = (char)SerialUSB.read();
+    // add it to the inputString:
+    inputString += inChar;
+    // if the incoming character is a newline, set a flag so the main loop can
+    // do something about it:
+    if (inChar == '\n') {
+      finReception = true;
+    }
+    if(finReception)
+    {
+      switch (inputString[0])
       {
-          finReception = true;
-      }
+        /**
+         * On regarde la première lettre des données reçues
+         */
+        case 's':
+          cycle[0].time_awake_str=inputString.substring(1,7);
+          cycle[0].time_sleep_str=inputString.substring(7,13);
+          cycle[0].time_awake=cycle[0].time_awake_str.toInt();
+          cycle[0].time_sleep=cycle[0].time_sleep_str.toInt();
+          
+          cycle[1].time_awake_str=inputString.substring(13,19);
+          cycle[1].time_sleep_str=inputString.substring(19,25);
+          cycle[1].time_awake=cycle[1].time_awake_str.toInt();
+          cycle[1].time_sleep=cycle[1].time_sleep_str.toInt();
+          
+          cycle[2].time_awake_str=inputString.substring(25,31);
+          cycle[2].time_sleep_str=inputString.substring(31,37);
+          cycle[2].time_awake=cycle[2].time_awake_str.toInt();
+          cycle[2].time_sleep=cycle[2].time_sleep_str.toInt();
 
+          /*conteneur=inputString.substring(37,40);
+          f_acquisition=conteneur.toInt();
+          f_acquisition=f_acquisition*1000;
+          f_acquisition-=50;
+          conteneur="";*/
 
-          if (finReception)
+          conteneur=inputString.substring(37,38);
+          etat_start=conteneur.toInt();
+          cycle_en_cours=0;
+          flag_cycle=0;
+          rep_en_cours=1;
+          cycle[0].nb_rep_str=inputString.substring(38,40);
+          cycle[1].nb_rep_str=inputString.substring(40, 42);
+          cycle[2].nb_rep_str=inputString.substring(42,44);
+          cycle[0].nb_rep=cycle[0].nb_rep_str.toInt();
+          cycle[1].nb_rep=cycle[1].nb_rep_str.toInt();
+          cycle[2].nb_rep=cycle[2].nb_rep_str.toInt();
+
+          //DEBUG//
+          /*
+          SerialUSB.print("awake 1 : ");
+          SerialUSB.println(cycle[0].time_awake);
+          SerialUSB.print("sleep 1 : ");
+          SerialUSB.println(cycle[0].time_sleep);
+          
+          SerialUSB.print("awake 2 : ");
+          SerialUSB.println(cycle[1].time_awake);
+          SerialUSB.print("sleep 2 : ");
+          SerialUSB.println(cycle[1].time_sleep);
+
+          SerialUSB.print("awake 3 : ");
+          SerialUSB.println(cycle[2].time_awake);
+          SerialUSB.print("sleep 3 : ");
+          SerialUSB.println(cycle[2].time_sleep);
+
+          SerialUSB.print("frequence : ");
+          SerialUSB.println(f_acquisition);
+
+          SerialUSB.print("start : ");
+          SerialUSB.println(etat_start);
+
+          SerialUSB.print("repetition 1er cycle : ");
+          SerialUSB.println(cycle[0].nb_rep);
+          SerialUSB.print("repetition 2eme cycle : ");
+          SerialUSB.println(cycle[1].nb_rep);
+          SerialUSB.print("repetition 3eme cycle : ");
+          SerialUSB.println(cycle[2].nb_rep);
+          */
+          
+          
+
+          
+
+          if(etat_start==1)
           {
-
-               Serial.print("\n\n\tLa chaine de caractere vaut: ");
-               Serial.println(inputString);
-
-              //   Serial.print("\tDebut BOUCLE IF FIN DE RECEPTION ");
-              //   Serial.print("\n\n\tLa chaine de caractere vaut: ");
-              //   Serial.println(inputString);
-
-              //   COURANT_MAX.amax_str = inputString.substring(41, 44);
-              //   COURANT_MAX.amax = COURANT_MAX.amax_str.toFloat();
-
-              //   Serial.print("\tCOURANT_MAX.amax_str = ");
-              //   Serial.println(COURANT_MAX.amax_str);
-
-              //   Serial.print("\tCOURANT_MAX.amax = ");
-              //   Serial.println(COURANT_MAX.amax);
-
-              // SerialUSB.print("\tFin de reception ok \ninputString: ");
-              // SerialUSB.println(inputString);
-
-              switch (inputString[0])
-              {
-              /**
-       * On regarde la première lettre des données reçues
-       */
-              case 's':
-                  cycle[0].time_awake_str = inputString.substring(1, 7);
-                  cycle[0].time_sleep_str = inputString.substring(7, 13);
-                  cycle[0].time_awake = cycle[0].time_awake_str.toInt();
-                  cycle[0].time_sleep = cycle[0].time_sleep_str.toInt();
-
-                  cycle[1].time_awake_str = inputString.substring(13, 19);
-                  cycle[1].time_sleep_str = inputString.substring(19, 25);
-                  cycle[1].time_awake = cycle[1].time_awake_str.toInt();
-                  cycle[1].time_sleep = cycle[1].time_sleep_str.toInt();
-
-                  cycle[2].time_awake_str = inputString.substring(25, 31);
-                  cycle[2].time_sleep_str = inputString.substring(31, 37);
-                  cycle[2].time_awake = cycle[2].time_awake_str.toInt();
-                  cycle[2].time_sleep = cycle[2].time_sleep_str.toInt();
-
-                  COURANT_MAX.amax_str = inputString.substring(41, 44);
-                  COURANT_MAX.amax = amperageMaxUser.amax_str.toFloat();
-                  Serial.print("Amperage max vaut: ");
-                  Serial.println(COURANT_MAX.amax);
-
-                  /*conteneur=inputString.substring(37,40);
-        f_acquisition=conteneur.toInt();
-        f_acquisition=f_acquisition*1000;
-        f_acquisition-=50;
-        conteneur="";*/
-
-                  conteneur = inputString.substring(37, 38);
-                  etat_start = conteneur.toInt();
-
-                  cycle_en_cours = 0;
-                  flag_cycle = 0;
-
-                  // //DEBUG//
-                  // SerialUSB.print("awake 1 : ");
-                  // SerialUSB.println(cycle[0].time_awake);
-                  // SerialUSB.print("sleep 1 : ");
-                  // SerialUSB.println(cycle[0].time_sleep);
-
-                  // SerialUSB.print("awake 2 : ");
-                  // SerialUSB.println(cycle[1].time_awake);
-                  // SerialUSB.print("sleep 2 : ");
-                  // SerialUSB.println(cycle[1].time_sleep);
-
-                  // SerialUSB.print("awake 3 : ");
-                  // SerialUSB.println(cycle[2].time_awake);
-                  // SerialUSB.print("sleep 3 : ");
-                  // SerialUSB.println(cycle[2].time_sleep);
-
-                  // SerialUSB.print("frequence : ");
-                  // SerialUSB.println(f_acquisition);
-
-                  // SerialUSB.print("start : ");
-                  // SerialUSB.println(etat_start);
-
-                  if (etat_start == 1)
-                  {
-                      changerEtatACC(HIGH);
-                  }
-                  if (etat_start == 0)
-                  {
-                      changerEtatACC(LOW);
-                  }
-
-                  nb_cycle = verif_nb_cycle();
-
-                  SerialUSB.print("nb cycle : ");
-                  SerialUSB.println(nb_cycle);
-
-                  uploadconfig = true;
-                  SerialUSB.print("ok\n");
-                  //SerialUSB.println("ok upload config\n");
-                  quitter = true;
-                  break;
-
-              case 'p':
-                  uploadconfig = false;
-                  changerEtatACC(LOW);
-                  cycle_en_cours = 0;
-                  flag_cycle = 0;
-
-                  SerialUSB.print("ok\n");
-                  //SerialUSB.println("ok case P\n");
-                  quitter = true;
-                  break;
-
-              case 'd':
-                  SerialUSB.print("d");
-                  SerialUSB.print("test debug");
-                  SerialUSB.print("\n");
-                  quitter = true;
-                  break;
-
-              default:
-                  SerialUSB.print("problème : l'arduino ne reconnait pas la donnée reçue : ");
-                  SerialUSB.println(inputString);
-                  quitter = true;
-                  break;
-              }
-              inputString = "";
-              finReception = false;
+            changerEtatACC(HIGH);
+          }
+          if(etat_start==0)
+          {
+            changerEtatACC(LOW);
           }
 
+          nb_cycle=verif_nb_cycle();
+          /*SerialUSB.print("nb cycle : ");
+          SerialUSB.println(nb_cycle);*/
+          uploadconfig=true;
+          SerialUSB.print("ok\n");
+        break;
+
+        case 'p':
+          uploadconfig=false;
+          changerEtatACC(LOW);
+          cycle_en_cours=0;
+          flag_cycle=0;
+          
+          SerialUSB.print("ok\n");
+        break;
+
+        case'd':
+          SerialUSB.print("d");
+          SerialUSB.print("test debug");
+          SerialUSB.print("\n");
+        
+        default:
+          SerialUSB.print("problème : l'arduino ne reconnait pas la donnée reçue : ");
+          SerialUSB.println(inputString);
+        break;
+      }
+      inputString="";
+      finReception=false;
+    }
   }
+
+  /*
+
+  COURANT_MAX.amax_str = inputString.substring(45, 47);
+          Serial.print("\n\nLa valeur lu du courant max vaut: ");
+          Serial.println(COURANT_MAX.amax_str);
+          COURANT_MAX.amax = 5;//amperageMaxUser.amax_str.toFloat();
+          Serial.print("Amperage max vaut: ");
+          Serial.println(COURANT_MAX.amax);
+          */
+
+  Serial.print("\n\nLa valeur lu du courant max vaut: ");
+  Serial.println(COURANT_MAX.amax_str);
 
   SelectChannel(0);
   delay(140);
@@ -622,12 +621,12 @@ void loop()
   delay(150);
   dut2.set_channel_MI(SpiReadChannelADC1());
 
-//   dut1.test_channel();
-//   dut2.test_channel();
-//   dut3.test_channel();
-//   dut4.test_channel();
-//   dut5.test_channel();
-//   dut6.test_channel();
+  //   dut1.test_channel();
+  //   dut2.test_channel();
+  //   dut3.test_channel();
+  //   dut4.test_channel();
+  //   dut5.test_channel();
+  //   dut6.test_channel();
 
   dut1.assignation_valeurs_converties();
   dut2.assignation_valeurs_converties();
@@ -635,8 +634,6 @@ void loop()
   dut4.assignation_valeurs_converties();
   dut5.assignation_valeurs_converties();
   dut6.assignation_valeurs_converties();
-
-
 
   dut1.test_assignation_valeurs_converties();
   dut2.test_assignation_valeurs_converties();
@@ -703,15 +700,14 @@ float conversion_channel_mA(long result)
   double resolution = 1048576;
   double resistanceShunt = 0.020;
   double uMax = 4.098;
-  double span =  0.00000390625;//(uMax/resolution);
+  double span = 0.00000390625; //(uMax/resolution);
   int gain = 250 * 3;
   double tensionMaxLtc = uMax / gain;
   double courant_max_LTC = tensionMaxLtc / resistanceShunt;
   double courantAmperParBit = courant_max_LTC / 1048575;
 
-
   //courant_mA = (result * courantAmperParBit);// 0.00000390625);
-  courant_mA = (result * 0.00000390625);
+  courant_mA = (result * 0.00000476837613);
 
   courant_mA = (courant_mA * 1000) / (0.020 * 250 * 3);
   // Retour de la valeur convertie
@@ -727,22 +723,21 @@ float conversion_channel_microA(long result)
   // Déclaration de la variable pour la tension
 
   /*
-  double resolution = 1048576;
-  int resistanceShunt = 10;
-  double uMax = 4.098;
-  double span = uMax / resolution;
-  int gain = 250 * 3;
-  double tensionMaxLtc = uMax / gain;
-  double courant_max_LTC = tensionMaxLtc / resistanceShunt;
-  double courantAmperParBit = courant_max_LTC / 1048575;
+    double resolution = 1048576;
+    int resistanceShunt = 10;
+    double uMax = 4.098;
+    double span = uMax / resolution;
+    int gain = 250 * 3;
+    double tensionMaxLtc = uMax / gain;
+    double courant_max_LTC = tensionMaxLtc / resistanceShunt;
+    double courantAmperParBit = courant_max_LTC / 1048575;
   */
 
-
   //courant_mA = (result * courantAmperParBit);// 0.00000390625);
-  courant_microA = (result * 0.00000390625);
-  courant_microA = (courant_microA * 1000000) / (10 * 250*3);
+  courant_microA = (result * 0.00000476837613);
+  courant_microA = (courant_microA * 1000000) / (10 * 250 * 3);
 
-  // Retour de la valeur convertie
+  // Retour de la valeur convertie     0.00000
   return courant_microA;
 }
 
@@ -1201,145 +1196,145 @@ void EnvoiTrame(Dut Adc1, Dut Adc2, Dut Adc3, Dut Adc4, Dut Adc5, Dut Adc6)
 
   switch (Adc1.get_unite())
   {
-    case 0:
-      P[0] = Adc1.get_uW();
-      A[0] = Adc1.get_uA();
-      break;
+  case 0:
+    P[0] = Adc1.get_uW();
+    A[0] = Adc1.get_uA();
+    break;
 
-    case 1:
-      P[0] = Adc1.get_mW();
-      A[0] = Adc1.get_mA();
-      break;
+  case 1:
+    P[0] = Adc1.get_mW();
+    A[0] = Adc1.get_mA();
+    break;
 
-    case 2:
-      P[0] = Adc1.get_W();
-      A[0] = Adc1.get_A();
-      break;
+  case 2:
+    P[0] = Adc1.get_W();
+    A[0] = Adc1.get_A();
+    break;
 
-    default:
-      //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé pour DUT1");
-      P[0] = 0;
-      A[0] = 0;
-      break;
+  default:
+    //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé pour DUT1");
+    P[0] = 0;
+    A[0] = 0;
+    break;
   }
 
   switch (Adc2.get_unite())
   {
-    case 0:
-      P[1] = Adc2.get_uW();
-      A[1] = Adc2.get_uA();
-      break;
+  case 0:
+    P[1] = Adc2.get_uW();
+    A[1] = Adc2.get_uA();
+    break;
 
-    case 1:
-      P[1] = Adc2.get_mW();
-      A[1] = Adc2.get_mA();
-      break;
+  case 1:
+    P[1] = Adc2.get_mW();
+    A[1] = Adc2.get_mA();
+    break;
 
-    case 2:
-      P[1] = Adc2.get_W();
-      A[1] = Adc2.get_A();
-      break;
+  case 2:
+    P[1] = Adc2.get_W();
+    A[1] = Adc2.get_A();
+    break;
 
-    default:
-      //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé  pour DUT2");
-      P[1] = 0;
-      A[1] = 0;
-      break;
+  default:
+    //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé  pour DUT2");
+    P[1] = 0;
+    A[1] = 0;
+    break;
   }
 
   switch (Adc3.get_unite())
   {
-    case 0:
-      P[2] = Adc3.get_uW();
-      A[2] = Adc3.get_uA();
-      break;
+  case 0:
+    P[2] = Adc3.get_uW();
+    A[2] = Adc3.get_uA();
+    break;
 
-    case 1:
-      P[2] = Adc3.get_mW();
-      A[2] = Adc3.get_mA();
-      break;
+  case 1:
+    P[2] = Adc3.get_mW();
+    A[2] = Adc3.get_mA();
+    break;
 
-    case 2:
-      P[2] = Adc3.get_W();
-      A[2] = Adc3.get_A();
-      break;
+  case 2:
+    P[2] = Adc3.get_W();
+    A[2] = Adc3.get_A();
+    break;
 
-    default:
-      //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé pour DUT3");
-      P[2] = 0;
-      A[2] = 0;
-      break;
+  default:
+    //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé pour DUT3");
+    P[2] = 0;
+    A[2] = 0;
+    break;
   }
 
   switch (Adc4.get_unite())
   {
-    case 0:
-      P[3] = Adc4.get_uW();
-      A[3] = Adc4.get_uA();
-      break;
+  case 0:
+    P[3] = Adc4.get_uW();
+    A[3] = Adc4.get_uA();
+    break;
 
-    case 1:
-      P[3] = Adc4.get_mW();
-      A[3] = Adc4.get_mA();
-      break;
+  case 1:
+    P[3] = Adc4.get_mW();
+    A[3] = Adc4.get_mA();
+    break;
 
-    case 2:
-      P[3] = Adc4.get_W();
-      A[3] = Adc4.get_A();
-      break;
+  case 2:
+    P[3] = Adc4.get_W();
+    A[3] = Adc4.get_A();
+    break;
 
-    default:
-      //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé  pour DUT4");
-      P[3] = 0;
-      A[3] = 0;
-      break;
+  default:
+    //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé  pour DUT4");
+    P[3] = 0;
+    A[3] = 0;
+    break;
   }
 
   switch (Adc5.get_unite())
   {
-    case 0:
-      P[4] = Adc5.get_uW();
-      A[4] = Adc5.get_uA();
-      break;
+  case 0:
+    P[4] = Adc5.get_uW();
+    A[4] = Adc5.get_uA();
+    break;
 
-    case 1:
-      P[4] = Adc5.get_mW();
-      A[4] = Adc5.get_mA();
-      break;
+  case 1:
+    P[4] = Adc5.get_mW();
+    A[4] = Adc5.get_mA();
+    break;
 
-    case 2:
-      P[4] = Adc5.get_W();
-      A[4] = Adc5.get_A();
-      break;
+  case 2:
+    P[4] = Adc5.get_W();
+    A[4] = Adc5.get_A();
+    break;
 
-    default:
-      //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé pour DUT5");
-      P[4] = 0;
-      A[4] = 0;
-      break;
+  default:
+    //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé pour DUT5");
+    P[4] = 0;
+    A[4] = 0;
+    break;
   }
   switch (Adc6.get_unite())
   {
-    case 0:
-      P[5] = Adc6.get_uW();
-      A[5] = Adc6.get_uA();
-      break;
+  case 0:
+    P[5] = Adc6.get_uW();
+    A[5] = Adc6.get_uA();
+    break;
 
-    case 1:
-      P[5] = Adc6.get_mW();
-      A[5] = Adc6.get_mA();
-      break;
+  case 1:
+    P[5] = Adc6.get_mW();
+    A[5] = Adc6.get_mA();
+    break;
 
-    case 2:
-      P[5] = Adc6.get_W();
-      A[5] = Adc6.get_A();
-      break;
+  case 2:
+    P[5] = Adc6.get_W();
+    A[5] = Adc6.get_A();
+    break;
 
-    default:
-      //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé  pour DUT6");
-      P[5] = 0;
-      A[5] = 0;
-      break;
+  default:
+    //SerialUSB.println("Arduino: Envoi Trame: aucune unité favorisé  pour DUT6");
+    P[5] = 0;
+    A[5] = 0;
+    break;
   }
 
   Serial.println("J'ai casé les valeurs dans le tableau\n\nJ'envois les valeurs dans le port Série");
@@ -1446,9 +1441,9 @@ void EnvoiTrame(Dut Adc1, Dut Adc2, Dut Adc3, Dut Adc4, Dut Adc5, Dut Adc6)
   Dernière modification 24/10/2019 à 13h15 par Aslam BARWANE
 *************************************************************************/
 Dut::Dut(String nomDut) : nom(nomDut), uA(0), mA(0), A(0), Vin(0),
-  CMD_ACC_DUT(0), CMD_PWR_DUT(0), UI_PROT_STATE_DUT(0), flag_state_power(0),
-  channel_UI(0), channel_MI(0), channel_I(0), channel_NO(0), channel_PWR_DUT(0),
-  uW(0), mW(0), W(0)
+                          CMD_ACC_DUT(0), CMD_PWR_DUT(0), UI_PROT_STATE_DUT(0), flag_state_power(0),
+                          channel_UI(0), channel_MI(0), channel_I(0), channel_NO(0), channel_PWR_DUT(0),
+                          uW(0), mW(0), W(0)
 {
 }
 
@@ -1610,11 +1605,11 @@ void Dut::set_channel_MI(long setter_channel_MI)
 {
   channel_MI = setter_channel_MI;
 
-//   Serial.print("\n\t\tChannel MI interne du ");
-//   Serial.print(nom);
-//   Serial.print("  ");
-//   Serial.print(channel_MI);
-//   Serial.println("");
+  //   Serial.print("\n\t\tChannel MI interne du ");
+  //   Serial.print(nom);
+  //   Serial.print("  ");
+  //   Serial.print(channel_MI);
+  //   Serial.println("");
 }
 
 void Dut::set_channel_I(long setter_channel_I)
@@ -1711,9 +1706,9 @@ void Dut::assignation_valeurs_converties()
   uA = conversion_channel_microA(channel_UI);
   Vin = conversion_channel_power_in(channel_PWR_DUT);
 
-  if(uA<3){
-      uA = 0;
-  }
+  // if(uA<3){
+  //     uA = 0;
+  // }
 
   // On applique le coefficient de correction des valeur
   // Dernière modification 24/10/2019 à 14h24 par Aslam BARWANE
@@ -1860,5 +1855,63 @@ void state_CSADC(int etat)
     digitalWrite(CSADC_channel[i], etat); // CSADC à 1, pas de sortie
 
     digitalWrite(CSMUX_channel[i], etat); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
+  }
+}
+
+void verifCycle()
+{
+  if (flag_cycle == 2)
+  {
+    if (rep_en_cours == cycle[cycle_en_cours].nb_rep)
+    {
+      if (cycle_en_cours + 1 == nb_cycle)
+      {
+        cycle_en_cours = 0;
+      }
+      else
+      {
+        cycle_en_cours++;
+      }
+      rep_en_cours = 0;
+    }
+
+    flag_cycle = 0;
+    rep_en_cours++;
+  }
+}
+
+void HANDLER_ACC()
+{
+  if (uploadconfig)
+  {
+    if (nb_cycle == 1)
+    {
+      if ((statut == 0) && (compteur >= cycle[0].time_sleep))
+      {
+        changerEtatACC(HIGH);
+      }
+      if ((statut == 1) && (compteur >= cycle[0].time_awake))
+      {
+        changerEtatACC(LOW);
+      }
+    }
+    else
+    {
+      if (uploadconfig)
+      {
+        if ((statut == 0) && (compteur >= cycle[cycle_en_cours].time_sleep))
+        {
+          changerEtatACC(HIGH);
+          flag_cycle++;
+          verifCycle();
+        }
+        if ((statut == 1) && (compteur >= cycle[cycle_en_cours].time_awake))
+        {
+          changerEtatACC(LOW);
+          flag_cycle++;
+          verifCycle();
+        }
+      }
+    }
   }
 }
