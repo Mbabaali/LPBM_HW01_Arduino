@@ -807,33 +807,6 @@ void CS_MUX(int STATE)
 /////////////////////////////////////////////////////////////////////////////////////////
 void SelectChannel(int n)
 {
-  //  // Tableau des Codes Hexa sélection de channel
-  //  int channel[8] = {0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F};
-  //
-  //  // Chip Select à l'état haut pour la sélection du channel
-  //  digitalWrite(CSADC1, HIGH); // CSADC à 1, pas de sortie
-  //  digitalWrite(CSADC2, HIGH);
-  //  digitalWrite(CSADC3, HIGH);
-  //  digitalWrite(CSADC4, HIGH);
-  //
-  //  digitalWrite(CSMUX1, HIGH); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
-  //  digitalWrite(CSMUX2, HIGH);
-  //  digitalWrite(CSMUX3, HIGH);
-  //  digitalWrite(CSMUX4, HIGH);
-  //
-  //  // Envoie SPI de l'adresse MUX pour le channel souhaité
-  //  SPI.transfer(channel[n]);
-  //
-  //  // On remet tous les CSMUX à 0 pour les connecter en interne à l'ADC
-  //  digitalWrite(CSADC1, HIGH);
-  //  digitalWrite(CSADC2, HIGH);
-  //  digitalWrite(CSADC3, HIGH);
-  //  digitalWrite(CSADC4, HIGH);
-  //
-  //  digitalWrite(CSMUX1, LOW);
-  //  digitalWrite(CSMUX2, LOW);
-  //  digitalWrite(CSMUX3, LOW);
-  //  digitalWrite(CSMUX4, LOW);
 
   // Tableau des Codes Hexa sélection de channel
   int channel[8] = {0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F}; //
@@ -1882,8 +1855,11 @@ void verifCycle()
 
 void HANDLER_ACC()
 {
+  compteur++;
+  
   if (uploadconfig)
   {
+    
     if (nb_cycle == 1)
     {
       if ((statut == 0) && (compteur >= cycle[0].time_sleep))

@@ -303,8 +303,6 @@ void setup()
 
     // Ouverture du port Serial pour l'affichage console du résultat de la conversion
     Serial.begin(115200);
-    SerialUSB.begin(115200);
-    Serial.println("Début de la boucle main");
 
     SPI.begin();
     //  SPI.begin(CSMUX1);
@@ -358,7 +356,7 @@ void setup()
     pinMode(CMD_PWR_DUT5, OUTPUT);
     pinMode(CMD_PWR_DUT6, OUTPUT);
 
-    Serial.println("Low Power Bench Measurement VBRC-K8400");
+    //Serial.println("Low Power Bench Measurement VBRC-K8400");
     // SerialUSB.println("Low Power Bench Measurement VBRC-K8400");
 
     COURANT_MAX.amax = 5;
@@ -366,14 +364,13 @@ void setup()
     Timer3.getAvailable().attachInterrupt(HANDLER_ACC).setPeriod(1000000).start();
     Timer2.getAvailable().attachInterrupt(HANDLER_CURRENT_MAX).setFrequency(10).start();
 
-    // while (!SerialUSB)
-    // {
-    //     //SerialUSB.println("wait for serial port to connect. main");               //
-    //     Serial.println("wait for serial port to connect. MAIN SERIAL.PRINTLN");
-    //     //
-    // }
+    while (!SerialUSB)
+    {
+        // SerialUSB.println("wait for serial port to connect. Needed for native USB"); //
+        Serial.println("wait for serial port to connect. Needed for native USB"); //
+    }
 
-    Serial.println("Designed and developed by Robin Carriou & Vincent Bougouin");
+    //Serial.println("Designed and developed by Robin Carriou & Vincent Bougouin");
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -383,9 +380,6 @@ void loop()
 {
     Serial.println("\n\n\t*** DEBUT BOUCLE LOOP ***");
     // SerialUSB.println("\n\n\t*** DEBUT BOUCLE LOOP USB***");
-
-    // Serial.println("\n\n\tCompteur: ");
-    // Serial.print(compteur);
 
     Dut dut1("DUT 1");
     Dut dut2("DUT 2");
@@ -418,386 +412,228 @@ void loop()
     double channel_Vin = 0;
     boolean start_mesure = false;
 
-    // A supprimer aprés
-    //COURANT_MAX.amax = 10.0;
-
-    /**
-          BOUCLE WHILE A METTRE ICI
-  */
-    //Serial.println("\n\n\t\t*** DEBUT BOUCLE WHILE ***");
 
     boolean quitter = false;
 
-    // while (SerialUSB.available() && !finReception)
-    // {
-    //     /**
-    //  * Cette boucle s'active si l'arduino commence à recevoir des données sur son port uart (données envoyé par la pi). on receptionne les données sous forme
-    //  * de string (inputString), puis lorsque la reception est fini, on analyse la chaine de caractère. selon le format suivant :
-    //  * ->la première lettre est un s : l'user a "start" l'acquisition, on reçoit donc les paramètres de time_awake et time_sleep
-    //  * ->la première lettre est un "p" : l'user a mis en pause l'acquisition : il faut donc....
-    //  *
-    //  */
-    //     // get the new byte:
-    //     char inChar = (char)SerialUSB.read();
-    //     // add it to the inputString:
-    //     inputString += inChar;
-    //     // if the incoming character is a newline, set a flag so the main loop can
-    //     // do something about it:
-    //     if (inChar == '\n')
-    //     {
-    //         finReception = true;
-    //     }
-    //     if (finReception)
-    //     {
-    //         switch (inputString[0])
-    //         {
-    //         /**
-    //      * On regarde la première lettre des données reçues
-    //      */
-    //         case 's':
+    while (SerialUSB.available() && !finReception)
+    {
+        /**
+     * Cette boucle s'active si l'arduino commence à recevoir des données sur son port uart (données envoyé par la pi). on receptionne les données sous forme 
+     * de string (inputString), puis lorsque la reception est fini, on analyse la chaine de caractère. selon le format suivant :
+     * ->la première lettre est un s : l'user a "start" l'acquisition, on reçoit donc les paramètres de time_awake et time_sleep
+     * ->la première lettre est un "p" : l'user a mis en pause l'acquisition : il faut donc....
+     * 
+     */
+        // get the new byte:
+        char inChar = (char)SerialUSB.read();
+        // add it to the inputString:
+        inputString += inChar;
+        // if the incoming character is a newline, set a flag so the main loop can
+        // do something about it:
+        if (inChar == '\n')
+        {
+            finReception = true;
+        }
+        if (finReception)
+        {
+            Serial.print("inputString: ");
+            Serial.println(inputString);
+            switch (inputString[0])
+            {
+            /**
+         * On regarde la première lettre des données reçues
+         */
+            case 's':
 
-    //             Serial.print("inputString: ");
-    //             Serial.println(inputString);
+                Serial.print("inputString: ");
+                Serial.println(inputString);
 
-    //             cycle[0].time_awake_str = inputString.substring(1, 7);
-    //             cycle[0].time_sleep_str = inputString.substring(7, 13);
-    //             cycle[0].time_awake = cycle[0].time_awake_str.toInt();
-    //             cycle[0].time_sleep = cycle[0].time_sleep_str.toInt();
+                cycle[0].time_awake_str = inputString.substring(1, 7);
+                cycle[0].time_sleep_str = inputString.substring(7, 13);
+                cycle[0].time_awake = cycle[0].time_awake_str.toInt();
+                cycle[0].time_sleep = cycle[0].time_sleep_str.toInt();
 
-    //             Serial.print("cycle[0].time_awake_str: ");
-    //             Serial.println(cycle[0].time_awake_str);
-    //             Serial.print("cycle[0].time_sleep_str: ");
-    //             Serial.println(cycle[0].time_sleep_str);
+                Serial.print("cycle[0].time_awake_str: ");
+                Serial.println(cycle[0].time_awake_str);
+                Serial.print("cycle[0].time_sleep_str: ");
+                Serial.println(cycle[0].time_sleep_str);
 
-    //             cycle[1].time_awake_str = inputString.substring(13, 19);
-    //             cycle[1].time_sleep_str = inputString.substring(19, 25);
-    //             cycle[1].time_awake = cycle[1].time_awake_str.toInt();
-    //             cycle[1].time_sleep = cycle[1].time_sleep_str.toInt();
+                cycle[1].time_awake_str = inputString.substring(13, 19);
+                cycle[1].time_sleep_str = inputString.substring(19, 25);
+                cycle[1].time_awake = cycle[1].time_awake_str.toInt();
+                cycle[1].time_sleep = cycle[1].time_sleep_str.toInt();
 
-    //             Serial.print("cycle[1].time_awake_str: ");
-    //             Serial.println(cycle[1].time_awake_str );
-    //             Serial.print("cycle[1].time_sleep_str: ");
-    //             Serial.println(cycle[1].time_sleep_str);
+                Serial.print("cycle[1].time_awake_str: ");
+                Serial.println(cycle[1].time_awake_str);
+                Serial.print("cycle[1].time_sleep_str: ");
+                Serial.println(cycle[1].time_sleep_str);
 
-    //             cycle[2].time_awake_str = inputString.substring(25, 31);
-    //             cycle[2].time_sleep_str = inputString.substring(31, 37);
-    //             cycle[2].time_awake = cycle[2].time_awake_str.toInt();
-    //             cycle[2].time_sleep = cycle[2].time_sleep_str.toInt();
+                cycle[2].time_awake_str = inputString.substring(25, 31);
+                cycle[2].time_sleep_str = inputString.substring(31, 37);
+                cycle[2].time_awake = cycle[2].time_awake_str.toInt();
+                cycle[2].time_sleep = cycle[2].time_sleep_str.toInt();
 
-    //             Serial.print("cycle[2].time_awake_str: ");
-    //             Serial.println(cycle[2].time_awake_str);
-    //             Serial.print("cycle[2].time_sleep_str: ");
-    //             Serial.println(cycle[2].time_sleep_str);
-    //             /*conteneur=inputString.substring(37,40);
-    //       f_acquisition=conteneur.toInt();
-    //       f_acquisition=f_acquisition*1000;
-    //       f_acquisition-=50;
-    //       conteneur="";*/
+                Serial.print("cycle[2].time_awake_str: ");
+                Serial.println(cycle[2].time_awake_str);
+                Serial.print("cycle[2].time_sleep_str: ");
+                Serial.println(cycle[2].time_sleep_str);
+                /*conteneur=inputString.substring(37,40);
+          f_acquisition=conteneur.toInt();
+          f_acquisition=f_acquisition*1000;
+          f_acquisition-=50;
+          conteneur="";*/
 
-    //             conteneur = inputString.substring(37, 38);
-    //             etat_start = conteneur.toInt();
-    //             cycle_en_cours = 0;
-    //             flag_cycle = 0;
-    //             rep_en_cours = 1;
+                conteneur = inputString.substring(37, 38);
+                etat_start = conteneur.toInt();
+                cycle_en_cours = 0;
+                flag_cycle = 0;
+                rep_en_cours = 1;
 
-    //             Serial.print("etat_start: ");
-    //             Serial.println(etat_start);
+                Serial.print("etat_start: ");
+                Serial.println(etat_start);
 
-    //             cycle[0].nb_rep_str = inputString.substring(38, 40);
-    //             cycle[1].nb_rep_str = inputString.substring(40, 42);
-    //             cycle[2].nb_rep_str = inputString.substring(42, 44);
-    //             cycle[0].nb_rep = cycle[0].nb_rep_str.toInt();
-    //             cycle[1].nb_rep = cycle[1].nb_rep_str.toInt();
-    //             cycle[2].nb_rep = cycle[2].nb_rep_str.toInt();
+                cycle[0].nb_rep_str = inputString.substring(38, 40);
+                cycle[1].nb_rep_str = inputString.substring(40, 42);
+                cycle[2].nb_rep_str = inputString.substring(42, 44);
+                cycle[0].nb_rep = cycle[0].nb_rep_str.toInt();
+                cycle[1].nb_rep = cycle[1].nb_rep_str.toInt();
+                cycle[2].nb_rep = cycle[2].nb_rep_str.toInt();
 
-    //             Serial.print("cycle[0].nb_rep_str: ");
-    //             Serial.println(cycle[0].nb_rep_str);
-    //             Serial.print("cycle[1].nb_rep_str ");
-    //             Serial.println(cycle[1].nb_rep_str);
-    //             Serial.print("cycle[2].nb_rep_str ");
-    //             Serial.println(cycle[2].nb_rep_str);
+                COURANT_MAX.amax_str = inputString.substring(45, 47);
 
-    //             //DEBUG//
-    //             /*
-    //       SerialUSB.print("awake 1 : ");
-    //       SerialUSB.println(cycle[0].time_awake);
-    //       SerialUSB.print("sleep 1 : ");
-    //       SerialUSB.println(cycle[0].time_sleep);
 
-    //       SerialUSB.print("awake 2 : ");
-    //       SerialUSB.println(cycle[1].time_awake);
-    //       SerialUSB.print("sleep 2 : ");
-    //       SerialUSB.println(cycle[1].time_sleep);
+                Serial.print("\n\nLa valeur lu du courant max vaut: ");
+                Serial.println(COURANT_MAX.amax_str);
 
-    //       SerialUSB.print("awake 3 : ");
-    //       SerialUSB.println(cycle[2].time_awake);
-    //       SerialUSB.print("sleep 3 : ");
-    //       SerialUSB.println(cycle[2].time_sleep);
+                Serial.print("cycle[0].nb_rep_str: ");
+                Serial.println(cycle[0].nb_rep_str);
+                Serial.print("cycle[1].nb_rep_str ");
+                Serial.println(cycle[1].nb_rep_str);
+                Serial.print("cycle[2].nb_rep_str ");
+                Serial.println(cycle[2].nb_rep_str);
 
-    //       SerialUSB.print("frequence : ");
-    //       SerialUSB.println(f_acquisition);
+                //DEBUG//
+                /*
+          SerialUSB.print("awake 1 : ");
+          SerialUSB.println(cycle[0].time_awake);
+          SerialUSB.print("sleep 1 : ");
+          SerialUSB.println(cycle[0].time_sleep);
+          
+          SerialUSB.print("awake 2 : ");
+          SerialUSB.println(cycle[1].time_awake);
+          SerialUSB.print("sleep 2 : ");
+          SerialUSB.println(cycle[1].time_sleep);
 
-    //       SerialUSB.print("start : ");
-    //       SerialUSB.println(etat_start);
+          SerialUSB.print("awake 3 : ");
+          SerialUSB.println(cycle[2].time_awake);
+          SerialUSB.print("sleep 3 : ");
+          SerialUSB.println(cycle[2].time_sleep);
 
-    //       SerialUSB.print("repetition 1er cycle : ");
-    //       SerialUSB.println(cycle[0].nb_rep);
-    //       SerialUSB.print("repetition 2eme cycle : ");
-    //       SerialUSB.println(cycle[1].nb_rep);
-    //       SerialUSB.print("repetition 3eme cycle : ");
-    //       SerialUSB.println(cycle[2].nb_rep);
-    //       */
+          SerialUSB.print("frequence : ");
+          SerialUSB.println(f_acquisition);
 
-    //             if (etat_start == 1)
-    //             {
-    //                 changerEtatACC(HIGH);
-    //             }
-    //             if (etat_start == 0)
-    //             {
-    //                 changerEtatACC(LOW);
-    //             }
+          SerialUSB.print("start : ");
+          SerialUSB.println(etat_start);
 
-    //             nb_cycle = verif_nb_cycle();
-    //             /*SerialUSB.print("nb cycle : ");
-    //              SerialUSB.println(nb_cycle);*/
-    //             uploadconfig = true;
-    //             SerialUSB.print("ok\n");
-    //             break;
-
-    //         case 'p':
-    //             uploadconfig = false;
-    //             changerEtatACC(LOW);
-    //             cycle_en_cours = 0;
-    //             flag_cycle = 0;
-
-    //             SerialUSB.print("ok\n");
-    //             break;
-
-    //         case 'd':
-    //             SerialUSB.print("d");
-    //             SerialUSB.print("test debug");
-    //             SerialUSB.print("\n");
-
-    //         default:
-    //             SerialUSB.print("problème : l'arduino ne reconnait pas la donnée reçue : ");
-    //             SerialUSB.println(inputString);
-    //             break;
-    //         }
-    //         inputString = "";
-    //         finReception = false;
-    //     }
-    // }
-
-    /*
-
-  COURANT_MAX.amax_str = inputString.substring(45, 47);
-          Serial.print("\n\nLa valeur lu du courant max vaut: ");
-          Serial.println(COURANT_MAX.amax_str);
-          COURANT_MAX.amax = 5;//amperageMaxUser.amax_str.toFloat();
-          Serial.print("Amperage max vaut: ");
-          Serial.println(COURANT_MAX.amax);
+          SerialUSB.print("repetition 1er cycle : ");
+          SerialUSB.println(cycle[0].nb_rep);
+          SerialUSB.print("repetition 2eme cycle : ");
+          SerialUSB.println(cycle[1].nb_rep);
+          SerialUSB.print("repetition 3eme cycle : ");
+          SerialUSB.println(cycle[2].nb_rep);
           */
 
-    // Serial.print("\n\nLa valeur lu du courant max vaut: ");
-    // Serial.println(COURANT_MAX.amax_str);
+                if (etat_start == 1)
+                {
+                    changerEtatACC(HIGH);
+                }
+                if (etat_start == 0)
+                {
+                    changerEtatACC(LOW);
+                }
 
-    // SelectChannel(0);
-    // delay(140);
-    // dut1.set_channel_UI(SpiReadChannelADC1());
-    // dut4.set_channel_UI(SpiReadChannelADC3());
-    // //
-    // SelectChannel(1);
-    // delay(150);
-    // dut1.set_channel_MI(SpiReadChannelADC1());
-    // dut2.set_channel_PWR_DUT(SpiReadChannelADC2());
-    // dut4.set_channel_MI(SpiReadChannelADC3());
-    // dut5.set_channel_PWR_DUT(SpiReadChannelADC4());
+                nb_cycle = verif_nb_cycle();
+                /*SerialUSB.print("nb cycle : ");
+                 SerialUSB.println(nb_cycle);*/
+                uploadconfig = true;
+                SerialUSB.print("ok\n");
+                Serial.println("OK TRANSMISSION");
+                break;
 
-    // SelectChannel(2);
-    // delay(150);
-    // dut1.set_channel_I(SpiReadChannelADC1());
-    // dut3.set_channel_UI(SpiReadChannelADC2());
-    // dut4.set_channel_I(SpiReadChannelADC3());
-    // dut6.set_channel_UI(SpiReadChannelADC4());
-    // //
-    // SelectChannel(3);
-    // delay(150);
-    // dut1.set_channel_NO(SpiReadChannelADC1());
-    // dut3.set_channel_MI(SpiReadChannelADC2());
-    // dut4.set_channel_NO(SpiReadChannelADC3());
-    // dut6.set_channel_MI(SpiReadChannelADC4());
-    // //
-    // SelectChannel(4);
-    // delay(150);
-    // dut1.set_channel_PWR_DUT(SpiReadChannelADC1());
-    // dut3.set_channel_I(SpiReadChannelADC2());
-    // dut4.set_channel_PWR_DUT(SpiReadChannelADC3());
-    // dut6.set_channel_I(SpiReadChannelADC4());
-    // //
-    // SelectChannel(5);
-    // delay(150);
-    // dut2.set_channel_UI(SpiReadChannelADC1());
-    // dut3.set_channel_NO(SpiReadChannelADC2());
-    // dut5.set_channel_UI(SpiReadChannelADC3());
+            case 'p':
+                uploadconfig = false;
+                changerEtatACC(LOW);
+                cycle_en_cours = 0;
+                flag_cycle = 0;
 
-    // SelectChannel(6);
-    // delay(150);
-    // //dut2.set_channel_MI(SpiReadChannelADC1());
-    // dut3.set_channel_PWR_DUT(SpiReadChannelADC2());
-    // dut5.set_channel_MI(SpiReadChannelADC3());
-    // dut6.set_channel_PWR_DUT(SpiReadChannelADC4());
+                SerialUSB.print("ok\n");
+                break;
 
-    // SelectChannel(7);
-    // delay(150);
-    // dut2.set_channel_I(SpiReadChannelADC1());
-    // dut5.set_channel_I(SpiReadChannelADC3());
+            case 'd':
+                SerialUSB.print("d");
+                SerialUSB.print("test debug");
+                SerialUSB.print("\n");
 
-    // SelectChannel(6);
-    // delay(150);
-    // dut2.set_channel_MI(SpiReadChannelADC1());
-
-    // SelectChannel(5);
-    // delay(150);
-    // dut5.set_channel_UI(SpiReadChannelADC3());
-
-    long channel_UI_DUT1;
-    long channel_MI_DUT1;
-    long channel_I_DUT1;
-    long channel_PWR_DUT1;
-
-    long channel_UI_DUT2;
-    long channel_MI_DUT2;
-    long channel_I_DUT2;
-    long channel_PWR_DUT2;
-
-    long channel_UI_DUT3;
-    long channel_MI_DUT3;
-    long channel_I_DUT3;
-    long channel_PWR_DUT3;
-
-    long channel_UI_DUT4;
-    long channel_MI_DUT4;
-    long channel_I_DUT4;
-    long channel_PWR_DUT4;
-
-    long channel_UI_DUT5;
-    long channel_MI_DUT5;
-    long channel_I_DUT5;
-    long channel_PWR_DUT5;
-
-    long channel_UI_DUT6;
-    long channel_MI_DUT6;
-    long channel_I_DUT6;
-    long channel_PWR_DUT6;
+            default:
+                SerialUSB.print("problème : l'arduino ne reconnait pas la donnée reçue : ");
+                SerialUSB.println(inputString);
+                break;
+            }
+            inputString = "";
+            finReception = false;
+        }
+    }
 
     SelectChannel(0);
-    delay(150);
-    channel_UI_DUT1  = SpiReadChannelADC1();
-    channel_UI_DUT4  = SpiReadChannelADC3();
-
+    delay(140);
+    dut1.set_channel_UI(SpiReadChannelADC1());
+    dut4.set_channel_UI(SpiReadChannelADC3());
+    //
     SelectChannel(1);
     delay(150);
-    channel_MI_DUT1  = SpiReadChannelADC1();
-    channel_PWR_DUT2 = SpiReadChannelADC2();
-    channel_MI_DUT4  = SpiReadChannelADC3();
-    channel_PWR_DUT5 = SpiReadChannelADC4();
+    dut1.set_channel_MI(SpiReadChannelADC1());
+    dut2.set_channel_PWR_DUT(SpiReadChannelADC2());
+    dut4.set_channel_MI(SpiReadChannelADC3());
+    dut5.set_channel_PWR_DUT(SpiReadChannelADC4());
 
     SelectChannel(2);
-    delay(150); 
-    channel_I_DUT1   = SpiReadChannelADC1();
-    channel_UI_DUT3  = SpiReadChannelADC2();
-    channel_I_DUT4   = SpiReadChannelADC3();
-    channel_UI_DUT6  = SpiReadChannelADC4();
-
+    delay(150);
+    dut1.set_channel_I(SpiReadChannelADC1());
+    dut3.set_channel_UI(SpiReadChannelADC2());
+    dut4.set_channel_I(SpiReadChannelADC3());
+    dut6.set_channel_UI(SpiReadChannelADC4());
+    //
     SelectChannel(3);
     delay(150);
-    channel_MI_DUT3   = SpiReadChannelADC2();
-    channel_MI_DUT6    = SpiReadChannelADC4();
-
+    dut1.set_channel_NO(SpiReadChannelADC1());
+    dut3.set_channel_MI(SpiReadChannelADC2());
+    dut4.set_channel_NO(SpiReadChannelADC3());
+    dut6.set_channel_MI(SpiReadChannelADC4());
+    //
     SelectChannel(4);
     delay(150);
-    channel_PWR_DUT1 = SpiReadChannelADC1();
-    channel_I_DUT3   = SpiReadChannelADC2();
-    channel_PWR_DUT4 = SpiReadChannelADC3();
-    channel_I_DUT6   = SpiReadChannelADC4();
-
+    dut1.set_channel_PWR_DUT(SpiReadChannelADC1());
+    dut3.set_channel_I(SpiReadChannelADC2());
+    dut4.set_channel_PWR_DUT(SpiReadChannelADC3());
+    dut6.set_channel_I(SpiReadChannelADC4());
+    //
     SelectChannel(5);
     delay(150);
-    channel_UI_DUT2 = SpiReadChannelADC1();
-    channel_UI_DUT5 = SpiReadChannelADC3();
+    dut2.set_channel_UI(SpiReadChannelADC1());
+    dut3.set_channel_NO(SpiReadChannelADC2());
+    dut5.set_channel_UI(SpiReadChannelADC3());
 
     SelectChannel(6);
     delay(150);
-    channel_MI_DUT2 = SpiReadChannelADC1();
-    channel_MI_DUT5 = SpiReadChannelADC3();
-    channel_PWR_DUT3 = SpiReadChannelADC2();
-    channel_PWR_DUT6 = SpiReadChannelADC4();
+    dut2.set_channel_MI(SpiReadChannelADC1());
+    dut3.set_channel_PWR_DUT(SpiReadChannelADC2());
+    dut5.set_channel_MI(SpiReadChannelADC3());
+    dut6.set_channel_PWR_DUT(SpiReadChannelADC4());
 
     SelectChannel(7);
     delay(150);
-    channel_I_DUT2 = SpiReadChannelADC1();
-    channel_I_DUT5   = SpiReadChannelADC3();
-
-
-
-    Serial.println("\nCHANNEL UI:");
-    Serial.print("channel_UI_DUT1: ");
-    Serial.println(channel_UI_DUT1);
-    Serial.print("channel_UI_DUT2: ");
-    Serial.println(channel_UI_DUT2);
-    Serial.print("channel_UI_DUT3: ");
-    Serial.println(channel_UI_DUT3);
-    Serial.print("channel_UI_DUT4: ");
-    Serial.println(channel_UI_DUT4);
-    Serial.print("channel_UI_DUT5: ");
-    Serial.println(channel_UI_DUT5);
-    Serial.print("channel_UI_DUT6: ");
-    Serial.println(channel_UI_DUT6);
-
-    Serial.println("\nCHANNEL MI:");
-    Serial.print("channel_MI_DUT1: ");
-    Serial.println(channel_MI_DUT1);
-    Serial.print("channel_MI_DUT2: ");
-    Serial.println(channel_MI_DUT2);
-    Serial.print("channel_MI_DUT3: ");
-    Serial.println(channel_MI_DUT3);
-    Serial.print("channel_MI_DUT4: ");
-    Serial.println(channel_MI_DUT4);
-    Serial.print("channel_MI_DUT5: ");
-    Serial.println(channel_MI_DUT5);
-    Serial.print("channel_MI_DUT6: ");
-    Serial.println(channel_MI_DUT6);
-
-    Serial.println("\nCHANNEL I:");
-    Serial.print("channel_I_DUT1: ");
-    Serial.println(channel_I_DUT1);
-    Serial.print("channel_I_DUT2: ");
-    Serial.println(channel_I_DUT2);
-    Serial.print("channel_I_DUT3: ");
-    Serial.println(channel_I_DUT3);
-    Serial.print("channel_I_DUT4: ");
-    Serial.println(channel_I_DUT4);
-    Serial.print("channel_I_DUT5: ");
-    Serial.println(channel_I_DUT5);
-    Serial.print("channel_I_DUT6: ");
-    Serial.println(channel_I_DUT6);
-
-    Serial.println("\nCHANNEL PWR_DUT:");
-    Serial.print("channel_PWR_DUT1: ");
-    Serial.println(channel_PWR_DUT1);
-    Serial.print("channel_PWR_DUT2: ");
-    Serial.println(channel_PWR_DUT2);
-    Serial.print("channel_PWR_DUT3: ");
-    Serial.println(channel_PWR_DUT3);
-    Serial.print("channel_PWR_DUT4: ");
-    Serial.println(channel_PWR_DUT4);
-    Serial.print("channel_PWR_DUT5: ");
-    Serial.println(channel_PWR_DUT5);
-    Serial.print("channel_PWR_DUT6: ");
-    Serial.println(channel_PWR_DUT6);
-
-
-
+    dut2.set_channel_I(SpiReadChannelADC1());
+    dut5.set_channel_I(SpiReadChannelADC3());
 
     // dut1.test_channel();
     // dut2.test_channel();
@@ -806,21 +642,21 @@ void loop()
     // dut5.test_channel();
     // dut6.test_channel();
 
-    // dut1.assignation_valeurs_converties();
-    // dut2.assignation_valeurs_converties();
-    // dut3.assignation_valeurs_converties();
-    // dut4.assignation_valeurs_converties();
-    // dut5.assignation_valeurs_converties();
-    // dut6.assignation_valeurs_converties();
+    dut1.assignation_valeurs_converties();
+    dut2.assignation_valeurs_converties();
+    dut3.assignation_valeurs_converties();
+    dut4.assignation_valeurs_converties();
+    dut5.assignation_valeurs_converties();
+    dut6.assignation_valeurs_converties();
 
-    // // dut1.test_assignation_valeurs_converties();
-    // // dut2.test_assignation_valeurs_converties();
-    // // dut3.test_assignation_valeurs_converties();
-    // // dut4.test_assignation_valeurs_converties();
-    // // dut5.test_assignation_valeurs_converties();
-    // // dut6.test_assignation_valeurs_converties();
+    // dut1.test_assignation_valeurs_converties();
+    // dut2.test_assignation_valeurs_converties();
+    // dut3.test_assignation_valeurs_converties();
+    // dut4.test_assignation_valeurs_converties();
+    // dut5.test_assignation_valeurs_converties();
+    // dut6.test_assignation_valeurs_converties();
 
-    // EnvoiTrame(dut1, dut2, dut3, dut4, dut5, dut6);
+    EnvoiTrame(dut1, dut2, dut3, dut4, dut5, dut6);
 
     Serial.println("\nFin LOOP \n\n\n");
 
@@ -898,20 +734,6 @@ float conversion_channel_mA(long result)
 float conversion_channel_microA(long result)
 {
     double courant_microA;
-    // Déclaration de la variable pour la tension
-
-    /*
-    double resolution = 1048576;
-    int resistanceShunt = 10;
-    double uMax = 4.098;
-    double span = uMax / resolution;
-    int gain = 250 * 3;
-    double tensionMaxLtc = uMax / gain;
-    double courant_max_LTC = tensionMaxLtc / resistanceShunt;
-    double courantAmperParBit = courant_max_LTC / 1048575;
-  */
-
-    //courant_mA = (result * courantAmperParBit);// 0.00000390625);
     courant_microA = (result * 0.00000476837613);
     courant_microA = (courant_microA * 1000000) / (10 * 250 * 3);
 
@@ -926,7 +748,7 @@ float conversion_channel_power_in(long result)
 {
     // Déclaration de la variable pour la tension
     double power_in;
-    //result = result / 3;
+
     power_in = (result * 0.00003047);
 
     // Retour de la valeur convertie
@@ -940,7 +762,7 @@ float conversion_channel_power_out(long result)
 {
     // Déclaration de la variable pour la tension
     double power_out;
-    //result = result / 3;
+
     power_out = (result * 0.00003047);
 
     // Retour de la valeur convertie
@@ -985,7 +807,6 @@ void CS_MUX(int STATE)
 /////////////////////////////////////////////////////////////////////////////////////////
 void SelectChannel(int n)
 {
-
     // Tableau des Codes Hexa sélection de channel
     int channel[8] = {0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F}; //
     int CSADC_channel[4] = {CSADC1, CSADC2, CSADC3, CSADC4};
@@ -1255,7 +1076,7 @@ long SpiReadChannelADC4(void)
 {
 
     /**
-    Permet de lire les signaux envoyé par SPI par les ADC :
+     Permet de lire les signaux envoyé par SPI par les ADC :
 
   */
     // Variable pour sauvegarder le résultat de la conversion
@@ -1319,7 +1140,7 @@ short int verif_nb_cycle()
 void changerEtatACC(int etat)
 {
     /**
-    Permet de change l'état de l'ACC
+     Permet de change l'état de l'ACC
   */
     digitalWrite(CMD_ACC_DUT1, etat);
     digitalWrite(CMD_ACC_DUT2, etat);
@@ -1756,11 +1577,11 @@ void Dut::set_channel_MI(long setter_channel_MI)
 {
     channel_MI = setter_channel_MI;
 
-    //   Serial.print("\n\t\tChannel MI interne du ");
-    //   Serial.print(nom);
-    //   Serial.print("  ");
-    //   Serial.print(channel_MI);
-    //   Serial.println("");
+    // Serial.print("\n\t\tChannel MI interne du ");
+    // Serial.print(nom);
+    // Serial.print("  ");
+    // Serial.print(channel_MI);
+    // Serial.println("");
 }
 
 void Dut::set_channel_I(long setter_channel_I)
@@ -1844,6 +1665,7 @@ void Dut::set_courant_max()
   Dernière modification 24/10/2019 à 13h15 par Aslam BARWANE
 * ************************************************************************/
 /*Methodes de conversion des valeurs lues dans l'ADC*/
+
 void Dut::assignation_valeurs_converties()
 {
     // Dernière modification 24/10/2019 à 13h15 par Aslam BARWANE

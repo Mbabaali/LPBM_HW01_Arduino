@@ -624,21 +624,21 @@ void loop()
   dut5.test_channel();
   dut6.test_channel();
 
-  dut1.assignation_valeurs_converties();
-  dut2.assignation_valeurs_converties();
-  dut3.assignation_valeurs_converties();
-  dut4.assignation_valeurs_converties();
-  dut5.assignation_valeurs_converties();
-  dut6.assignation_valeurs_converties();
+  // dut1.assignation_valeurs_converties();
+  // dut2.assignation_valeurs_converties();
+  // dut3.assignation_valeurs_converties();
+  // dut4.assignation_valeurs_converties();
+  // dut5.assignation_valeurs_converties();
+  // dut6.assignation_valeurs_converties();
 
-  dut1.test_assignation_valeurs_converties();
-  dut2.test_assignation_valeurs_converties();
-  dut3.test_assignation_valeurs_converties();
-  dut4.test_assignation_valeurs_converties();
-  dut5.test_assignation_valeurs_converties();
-  dut6.test_assignation_valeurs_converties();
+  // dut1.test_assignation_valeurs_converties();
+  // dut2.test_assignation_valeurs_converties();
+  // dut3.test_assignation_valeurs_converties();
+  // dut4.test_assignation_valeurs_converties();
+  // dut5.test_assignation_valeurs_converties();
+  // dut6.test_assignation_valeurs_converties();
 
-  EnvoiTrame(dut1, dut2, dut3, dut4, dut5, dut6);
+  // EnvoiTrame(dut1, dut2, dut3, dut4, dut5, dut6);
 
 
 

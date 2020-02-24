@@ -384,9 +384,6 @@ void loop()
     Serial.println("\n\n\t*** DEBUT BOUCLE LOOP ***");
     // SerialUSB.println("\n\n\t*** DEBUT BOUCLE LOOP USB***");
 
-    Serial.println("\n\n\tCompteur: ");
-    Serial.print(compteur);
-
     Dut dut1("DUT 1");
     Dut dut2("DUT 2");
     Dut dut3("DUT 3");
@@ -449,6 +446,8 @@ void loop()
         }
         if (finReception)
         {
+            Serial.print("inputString: ");
+                Serial.println(inputString);
             switch (inputString[0])
             {
             /**
@@ -562,6 +561,7 @@ void loop()
                  SerialUSB.println(nb_cycle);*/
                 uploadconfig = true;
                 SerialUSB.print("ok\n");
+                Serial.println("OK TRANSMISSION");
                 break;
 
             case 'p':
@@ -598,8 +598,8 @@ void loop()
           Serial.println(COURANT_MAX.amax);
           */
 
-    Serial.print("\n\nLa valeur lu du courant max vaut: ");
-    Serial.println(COURANT_MAX.amax_str);
+    //Serial.print("\n\nLa valeur lu du courant max vaut: ");
+    //Serial.println(COURANT_MAX.amax_str);
 
     SelectChannel(0);
     delay(140);
@@ -1345,7 +1345,7 @@ void EnvoiTrame(Dut Adc1, Dut Adc2, Dut Adc3, Dut Adc4, Dut Adc5, Dut Adc6)
         break;
     }
 
-    Serial.println("J'ai casé les valeurs dans le tableau\n\nJ'envois les valeurs dans le port Série");
+    //Serial.println("J'ai casé les valeurs dans le tableau\n\nJ'envois les valeurs dans le port Série");
 
     SerialUSB.print(statut);
     SerialUSB.print(":");
@@ -1393,53 +1393,53 @@ void EnvoiTrame(Dut Adc1, Dut Adc2, Dut Adc3, Dut Adc4, Dut Adc5, Dut Adc6)
 
     SerialUSB.print(":\r\n");
 
-    // Serial.println("J'ai envoyé les valeurs via le port série");
+    //Serial.println("J'ai envoyé les valeurs via le port série");
 
-    // // Debug trame
-    // Serial.println("Debug Trame\n");
-    // Serial.print(statut);
-    // Serial.print(":");
+    // Debug trame
+    Serial.println("\n\nDebug Trame\n");
+    Serial.print(statut);
+    Serial.print(":");
 
-    // Serial.print(Adc1.get_unite());
-    // Serial.print(":");
-    // Serial.print(P[0]);
-    // Serial.print(":");
-    // Serial.print(A[0]);
-    // Serial.print(":");
+    Serial.print(Adc1.get_unite());
+    Serial.print(":");
+    Serial.print(P[0]);
+    Serial.print(":");
+    Serial.print(A[0]);
+    Serial.print(":");
 
-    // Serial.print(Adc2.get_unite());
-    // Serial.print(":");
-    // Serial.print(P[1]);
-    // Serial.print(":");
-    // Serial.print(A[1]);
-    // Serial.print(":");
+    Serial.print(Adc2.get_unite());
+    Serial.print(":");
+    Serial.print(P[1]);
+    Serial.print(":");
+    Serial.print(A[1]);
+    Serial.print(":");
 
-    // Serial.print(Adc3.get_unite());
-    // Serial.print(":");
-    // Serial.print(P[2]);
-    // Serial.print(":");
-    // Serial.print(A[2]);
-    // Serial.print(":");
+    Serial.print(Adc3.get_unite());
+    Serial.print(":");
+    Serial.print(P[2]);
+    Serial.print(":");
+    Serial.print(A[2]);
+    Serial.print(":");
 
-    // Serial.print(Adc4.get_unite());
-    // Serial.print(":");
-    // Serial.print(P[3]);
-    // Serial.print(":");
-    // Serial.print(A[3]);
-    // Serial.print(":");
+    Serial.print(Adc4.get_unite());
+    Serial.print(":");
+    Serial.print(P[3]);
+    Serial.print(":");
+    Serial.print(A[3]);
+    Serial.print(":");
 
-    // Serial.print(Adc5.get_unite());
-    // Serial.print(":");
-    // Serial.print(P[4]);
-    // Serial.print(":");
-    // Serial.print(A[4]);
-    // Serial.print(":");
+    Serial.print(Adc5.get_unite());
+    Serial.print(":");
+    Serial.print(P[4]);
+    Serial.print(":");
+    Serial.print(A[4]);
+    Serial.print(":");
 
-    // Serial.print(Adc6.get_unite());
-    // Serial.print(":");
-    // Serial.print(P[5]);
-    // Serial.print(":");
-    // Serial.print(A[5]);
+    Serial.print(Adc6.get_unite());
+    Serial.print(":");
+    Serial.print(P[5]);
+    Serial.print(":");
+    Serial.print(A[5]);
 
     Serial.print("\r\n");
 }
