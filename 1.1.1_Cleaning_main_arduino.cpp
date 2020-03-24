@@ -364,11 +364,11 @@ void setup()
     Timer3.getAvailable().attachInterrupt(HANDLER_ACC).setPeriod(1000000).start();
     Timer2.getAvailable().attachInterrupt(HANDLER_CURRENT_MAX).setFrequency(10).start();
 
-    while (!SerialUSB)
-    {
-        // SerialUSB.println("wait for serial port to connect. Needed for native USB"); //
-        Serial.println("wait for serial port to connect. Needed for native USB"); //
-    }
+    // while (!SerialUSB)
+    // {
+    //     // SerialUSB.println("wait for serial port to connect. Needed for native USB"); //
+    //     Serial.println("wait for serial port to connect. Needed for native USB"); //
+    // }
 
     //Serial.println("Designed and developed by Robin Carriou & Vincent Bougouin");
 }
@@ -453,30 +453,30 @@ void loop()
                 cycle[0].time_awake = cycle[0].time_awake_str.toInt();
                 cycle[0].time_sleep = cycle[0].time_sleep_str.toInt();
 
-                Serial.print("cycle[0].time_awake_str: ");
-                Serial.println(cycle[0].time_awake_str);
-                Serial.print("cycle[0].time_sleep_str: ");
-                Serial.println(cycle[0].time_sleep_str);
+                // Serial.print("cycle[0].time_awake_str: ");
+                // Serial.println(cycle[0].time_awake_str);
+                // Serial.print("cycle[0].time_sleep_str: ");
+                // Serial.println(cycle[0].time_sleep_str);
 
                 cycle[1].time_awake_str = inputString.substring(13, 19);
                 cycle[1].time_sleep_str = inputString.substring(19, 25);
                 cycle[1].time_awake = cycle[1].time_awake_str.toInt();
                 cycle[1].time_sleep = cycle[1].time_sleep_str.toInt();
 
-                Serial.print("cycle[1].time_awake_str: ");
-                Serial.println(cycle[1].time_awake_str);
-                Serial.print("cycle[1].time_sleep_str: ");
-                Serial.println(cycle[1].time_sleep_str);
+                // Serial.print("cycle[1].time_awake_str: ");
+                // Serial.println(cycle[1].time_awake_str);
+                // Serial.print("cycle[1].time_sleep_str: ");
+                // Serial.println(cycle[1].time_sleep_str);
 
                 cycle[2].time_awake_str = inputString.substring(25, 31);
                 cycle[2].time_sleep_str = inputString.substring(31, 37);
                 cycle[2].time_awake = cycle[2].time_awake_str.toInt();
                 cycle[2].time_sleep = cycle[2].time_sleep_str.toInt();
 
-                Serial.print("cycle[2].time_awake_str: ");
-                Serial.println(cycle[2].time_awake_str);
-                Serial.print("cycle[2].time_sleep_str: ");
-                Serial.println(cycle[2].time_sleep_str);
+                // Serial.print("cycle[2].time_awake_str: ");
+                // Serial.println(cycle[2].time_awake_str);
+                // Serial.print("cycle[2].time_sleep_str: ");
+                // Serial.println(cycle[2].time_sleep_str);
                 /*conteneur=inputString.substring(37,40);
           f_acquisition=conteneur.toInt();
           f_acquisition=f_acquisition*1000;
@@ -625,22 +625,28 @@ void loop()
 
     SelectChannel(6);
     delay(150);
-    dut2.set_channel_MI(SpiReadChannelADC1());
+    //dut2.set_channel_MI(SpiReadChannelADC1());
     dut3.set_channel_PWR_DUT(SpiReadChannelADC2());
     dut5.set_channel_MI(SpiReadChannelADC3());
     dut6.set_channel_PWR_DUT(SpiReadChannelADC4());
+
+    
 
     SelectChannel(7);
     delay(150);
     dut2.set_channel_I(SpiReadChannelADC1());
     dut5.set_channel_I(SpiReadChannelADC3());
 
-    // dut1.test_channel();
-    // dut2.test_channel();
-    // dut3.test_channel();
-    // dut4.test_channel();
-    // dut5.test_channel();
-    // dut6.test_channel();
+    // SelectChannel(6);
+    // delay(150);
+    // dut2.set_channel_MI(SpiReadChannelADC1());
+
+    dut1.test_channel();
+    dut2.test_channel();
+    dut3.test_channel();
+    dut4.test_channel();
+    dut5.test_channel();
+    dut6.test_channel();
 
     dut1.assignation_valeurs_converties();
     dut2.assignation_valeurs_converties();
@@ -1890,4 +1896,32 @@ void HANDLER_ACC()
             }
         }
     }
+}
+
+long read_adc_channel(int adc, int channel)
+{
+    long result;
+
+    switch (adc)
+    {
+    case 1:
+        SelectChannelADC1(channel);
+        result = SpiReadChannelADC1();
+        break;
+    case 2:
+        SelectChannelADC2(channel);
+        result = SpiReadChannelADC2();
+        break;
+    case 3:
+        SelectChannelADC3(channel);
+        result = SpiReadChannelADC3();
+        break;
+    case 4:
+        SelectChannelADC4(channel);
+        result = SpiReadChannelADC4();
+        break;
+    default:
+        break;
+    }
+    return result;
 }

@@ -1364,53 +1364,53 @@ void EnvoiTrame(Dut Adc1, Dut Adc2, Dut Adc3, Dut Adc4, Dut Adc5, Dut Adc6)
 
     SerialUSB.print(":\r\n");
 
-    // Serial.println("J'ai envoyé les valeurs via le port série");
+    Serial.println("J'ai envoyé les valeurs via le port série");
 
-    // // Debug trame
-    // Serial.println("Debug Trame\n");
-    // Serial.print(statut);
-    // Serial.print(":");
+    // Debug trame
+    Serial.println("Debug Trame\n");
+    Serial.print(statut);
+    Serial.print(":");
 
-    // Serial.print(Adc1.get_unite());
-    // Serial.print(":");
-    // Serial.print(P[0]);
-    // Serial.print(":");
-    // Serial.print(A[0]);
-    // Serial.print(":");
+    Serial.print(Adc1.get_unite());
+    Serial.print(":");
+    Serial.print(P[0]);
+    Serial.print(":");
+    Serial.print(A[0]);
+    Serial.print(":");
 
-    // Serial.print(Adc2.get_unite());
-    // Serial.print(":");
-    // Serial.print(P[1]);
-    // Serial.print(":");
-    // Serial.print(A[1]);
-    // Serial.print(":");
+    Serial.print(Adc2.get_unite());
+    Serial.print(":");
+    Serial.print(P[1]);
+    Serial.print(":");
+    Serial.print(A[1]);
+    Serial.print(":");
 
-    // Serial.print(Adc3.get_unite());
-    // Serial.print(":");
-    // Serial.print(P[2]);
-    // Serial.print(":");
-    // Serial.print(A[2]);
-    // Serial.print(":");
+    Serial.print(Adc3.get_unite());
+    Serial.print(":");
+    Serial.print(P[2]);
+    Serial.print(":");
+    Serial.print(A[2]);
+    Serial.print(":");
 
-    // Serial.print(Adc4.get_unite());
-    // Serial.print(":");
-    // Serial.print(P[3]);
-    // Serial.print(":");
-    // Serial.print(A[3]);
-    // Serial.print(":");
+    Serial.print(Adc4.get_unite());
+    Serial.print(":");
+    Serial.print(P[3]);
+    Serial.print(":");
+    Serial.print(A[3]);
+    Serial.print(":");
 
-    // Serial.print(Adc5.get_unite());
-    // Serial.print(":");
-    // Serial.print(P[4]);
-    // Serial.print(":");
-    // Serial.print(A[4]);
-    // Serial.print(":");
+    Serial.print(Adc5.get_unite());
+    Serial.print(":");
+    Serial.print(P[4]);
+    Serial.print(":");
+    Serial.print(A[4]);
+    Serial.print(":");
 
-    // Serial.print(Adc6.get_unite());
-    // Serial.print(":");
-    // Serial.print(P[5]);
-    // Serial.print(":");
-    // Serial.print(A[5]);
+    Serial.print(Adc6.get_unite());
+    Serial.print(":");
+    Serial.print(P[5]);
+    Serial.print(":");
+    Serial.print(A[5]);
 
     Serial.print("\r\n");
 }
