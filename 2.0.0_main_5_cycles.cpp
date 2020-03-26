@@ -290,7 +290,7 @@ volatile int FLAG_CURRENT_MAX_DUT4 = false;
 volatile int FLAG_CURRENT_MAX_DUT5 = false;
 volatile int FLAG_CURRENT_MAX_DUT6 = false;
 
-struct cycle cycle[3] = {{0, 0, "", ""}, {0, 0, "", ""}, {0, 0, "", ""}};
+struct cycle cycle[5] = {{0, 0, "", ""}, {0, 0, "", ""}, {0, 0, "", ""}, {0, 0, "", ""}, {0, 0, "", ""}};
 struct amperageMax amperageMaxUser;
 
 amperageMax COURANT_MAX;
@@ -493,10 +493,12 @@ void loop()
                 Serial.println(etat_start);
 
                 cycle[0].nb_rep_str = inputString.substring(38, 40);
-                cycle[1].nb_rep_str = inputString.substring(40, 42);
-                cycle[2].nb_rep_str = inputString.substring(42, 44);
                 cycle[0].nb_rep = cycle[0].nb_rep_str.toInt();
+
+                cycle[1].nb_rep_str = inputString.substring(40, 42);
                 cycle[1].nb_rep = cycle[1].nb_rep_str.toInt();
+
+                cycle[2].nb_rep_str = inputString.substring(42, 44);
                 cycle[2].nb_rep = cycle[2].nb_rep_str.toInt();
 
                 COURANT_MAX.amax_str = inputString.substring(45, 47);
@@ -1151,44 +1153,7 @@ long SpiReadChannelADC4(void)
     return (result);
 }
 
-/**************************************************************************
-                        Fonction pour vérifier le nombre de Cycle
-  Dernière modification 28/10/2019 à 14h07 par Aslam BARWANE
-*************************************************************************/
-short int verif_nb_cycle()
-{
-    nb_cycle = 1;
-    if ((cycle[1].time_awake != 0) || (cycle[1].time_sleep != 0))
-    {
-        nb_cycle++;
-    }
 
-    if ((cycle[2].time_awake != 0) || (cycle[2].time_sleep != 0))
-    {
-        nb_cycle++;
-    }
-    return nb_cycle;
-}
-
-/**************************************************************************
-                        Fonction pour Changer l'état de l'ACC
-  Dernière modification 28/10/2019 à 12h07 par Aslam BARWANE
-*************************************************************************/
-void changerEtatACC(int etat)
-{
-    /**
-     Permet de change l'état de l'ACC
-  */
-    digitalWrite(CMD_ACC_DUT1, etat);
-    digitalWrite(CMD_ACC_DUT2, etat);
-    digitalWrite(CMD_ACC_DUT3, etat);
-    digitalWrite(CMD_ACC_DUT4, etat);
-    digitalWrite(CMD_ACC_DUT5, etat);
-    digitalWrite(CMD_ACC_DUT6, etat);
-
-    statut = etat;
-    compteur = 0;
-}
 
 /**************************************************************************
                         Fonction pour l'envoi de La trame
@@ -1866,6 +1831,56 @@ void state_CSADC(int etat)
 
         digitalWrite(CSMUX_channel[i], etat); // Uniquement le CSMUX à 1 de l'ADC dont on souhaite mofidier le channel
     }
+}
+
+
+/**************************************************************************
+                        Fonction pour vérifier le nombre de Cycle
+  Dernière modification 28/10/2019 à 14h07 par Aslam BARWANE
+*************************************************************************/
+short int verif_nb_cycle()
+{
+    nb_cycle = 1;
+    if ((cycle[1].time_awake != 0) || (cycle[1].time_sleep != 0))
+    {
+        nb_cycle++;
+    }
+
+    if ((cycle[2].time_awake != 0) || (cycle[2].time_sleep != 0))
+    {
+        nb_cycle++;
+    }
+
+    if ((cycle[3].time_awake != 0) || (cycle[3].time_sleep != 0))
+    {
+        nb_cycle++;
+    }
+
+    if ((cycle[4].time_awake != 0) || (cycle[4].time_sleep != 0))
+    {
+        nb_cycle++;
+    }
+    return nb_cycle;
+}
+
+/**************************************************************************
+                        Fonction pour Changer l'état de l'ACC
+  Dernière modification 28/10/2019 à 12h07 par Aslam BARWANE
+*************************************************************************/
+void changerEtatACC(int etat)
+{
+    /**
+     Permet de change l'état de l'ACC
+  */
+    digitalWrite(CMD_ACC_DUT1, etat);
+    digitalWrite(CMD_ACC_DUT2, etat);
+    digitalWrite(CMD_ACC_DUT3, etat);
+    digitalWrite(CMD_ACC_DUT4, etat);
+    digitalWrite(CMD_ACC_DUT5, etat);
+    digitalWrite(CMD_ACC_DUT6, etat);
+
+    statut = etat;
+    compteur = 0;
 }
 
 void verifCycle()
