@@ -579,6 +579,7 @@ void loop()
             case 'p':
                 uploadconfig = false;
                 changerEtatACC(LOW);
+                pause_DUT(dut1, dut2,dut3, dut4, dut5, dut6)
                 cycle_en_cours = 0;
                 flag_cycle = 0;
 
@@ -686,6 +687,16 @@ void loop()
     Serial.println("\nFin LOOP \n\n\n");
 
     delay(50);
+}
+
+
+void pause_DUT(Dut dut1, Dut dut2, Dut dut3, Dut dut4, Dut dut5, Dut dut6)
+{
+    Dut tableauDeDut[6] = {dut1, dut2, dut3, dut4, dut5, dut6};
+    for (int n=0; n<6; n++)
+    {
+        tableauDeDut[n].set_flag_state_power(true);
+    }
 }
 
 void HANDLER_CURRENT_MAX()
