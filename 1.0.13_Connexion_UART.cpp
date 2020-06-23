@@ -361,7 +361,7 @@ void setup()
     Serial.println("Low Power Bench Measurement VBRC-K8400");
     // SerialUSB.println("Low Power Bench Measurement VBRC-K8400");
 
-    COURANT_MAX.amax = 5;
+   // COURANT_MAX.amax = 5;
 
     Timer3.getAvailable().attachInterrupt(HANDLER_ACC).setPeriod(1000000).start();
     Timer2.getAvailable().attachInterrupt(HANDLER_CURRENT_MAX).setFrequency(10).start();
@@ -514,7 +514,7 @@ void loop()
                 cycle[2].nb_rep = cycle[2].nb_rep_str.toInt();
 
                 COURANT_MAX.amax_str = inputString.substring(44, 48);
-                COURANT_MAX.amax = COURANT_MAX.amax_strtoFloat();
+                COURANT_MAX.amax = COURANT_MAX.amax_str.toFloat();
 
                 Serial.print("cycle[0].nb_rep_str: ");
                 Serial.println(cycle[0].nb_rep_str);
