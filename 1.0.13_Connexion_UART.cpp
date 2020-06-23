@@ -579,7 +579,7 @@ void loop()
             case 'p':
                 uploadconfig = false;
                 changerEtatACC(LOW);
-                pause_DUT(dut1, dut2,dut3, dut4, dut5, dut6)
+                pause_DUT(dut1, dut2,dut3, dut4, dut5, dut6);
                 cycle_en_cours = 0;
                 flag_cycle = 0;
 
@@ -611,7 +611,7 @@ void loop()
     dut4.set_channel_UI(SpiReadChannelADC3());
     //
     SelectChannel(1);
-    delay(150);
+    delay(150); 
     dut1.set_channel_MI(SpiReadChannelADC1());
     dut2.set_channel_PWR_DUT(SpiReadChannelADC2());
     dut4.set_channel_MI(SpiReadChannelADC3());
