@@ -428,7 +428,7 @@ void loop()
 
     boolean quitter = false;
 
-    while (SerialUSB.available() && quitter)
+    while (SerialUSB.available() && !finReception)
     {
         /**
      * Cette boucle s'active si l'arduino commence à recevoir des données sur son port uart (données envoyé par la pi). on receptionne les données sous forme 
@@ -513,12 +513,20 @@ void loop()
                 cycle[1].nb_rep = cycle[1].nb_rep_str.toInt();
                 cycle[2].nb_rep = cycle[2].nb_rep_str.toInt();
 
+                COURANT_MAX.amax_str = inputString.substring(44, 48);
+                COURANT_MAX.amax = COURANT_MAX.amax_strtoFloat();
+
                 Serial.print("cycle[0].nb_rep_str: ");
                 Serial.println(cycle[0].nb_rep_str);
                 Serial.print("cycle[1].nb_rep_str ");
                 Serial.println(cycle[1].nb_rep_str);
                 Serial.print("cycle[2].nb_rep_str ");
                 Serial.println(cycle[2].nb_rep_str);
+
+                Serial.print("\n\nLa valeur lu du courant max vaut: ");
+                Serial.println(COURANT_MAX.amax_str);
+                Serial.print("Amperage max vaut: ");
+                Serial.println(COURANT_MAX.amax);
 
                 //DEBUG//
                 /*
@@ -589,19 +597,9 @@ void loop()
             }
             inputString = "";
             finReception = false;
-            quitter =true;
+            quitter = true;
         }
     }
-
-    /*
-
-  COURANT_MAX.amax_str = inputString.substring(45, 47);
-          Serial.print("\n\nLa valeur lu du courant max vaut: ");
-          Serial.println(COURANT_MAX.amax_str);
-          COURANT_MAX.amax = 5;//amperageMaxUser.amax_str.toFloat();
-          Serial.print("Amperage max vaut: ");
-          Serial.println(COURANT_MAX.amax);
-          */
 
     // Serial.print("\n\nLa valeur lu du courant max vaut: ");
     // Serial.println(COURANT_MAX.amax_str);
@@ -648,6 +646,7 @@ void loop()
     SelectChannel(6);
     delay(150);
     dut2.set_channel_MI(SpiReadChannelADC1());
+    dut2.set_channel_MI(dut2.get_channel_MI() - 69454);
     dut3.set_channel_PWR_DUT(SpiReadChannelADC2());
     dut5.set_channel_MI(SpiReadChannelADC3());
     dut6.set_channel_PWR_DUT(SpiReadChannelADC4());
