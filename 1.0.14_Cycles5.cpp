@@ -296,7 +296,7 @@ volatile int FLAG_CURRENT_MAX_DUT4 = false;
 volatile int FLAG_CURRENT_MAX_DUT5 = false;
 volatile int FLAG_CURRENT_MAX_DUT6 = false;
 
-struct cycle cycle[3] = {{0, 0, "", ""}, {0, 0, "", ""}, {0, 0, "", ""}};
+struct cycle cycle[5] = {{0, 0, "", ""}, {0, 0, "", ""}, {0, 0, "", ""}, {0, 0, "", ""}, {0, 0, "", ""}};
 struct amperageMax amperageMaxUser;
 
 amperageMax COURANT_MAX;
@@ -504,13 +504,34 @@ void loop()
                 Serial.println(cycle[2].time_awake_str);
                 Serial.print("cycle[2].time_sleep_str: ");
                 Serial.println(cycle[2].time_sleep_str);
+
+                cycle[3].time_awake_str = inputString.substring(37, 43);
+                cycle[3].time_sleep_str = inputString.substring(43, 49);
+                cycle[3].time_awake = cycle[3].time_awake_str.toInt();
+                cycle[3].time_sleep = cycle[3].time_sleep_str.toInt();
+
+                Serial.print("cycle[3].time_awake_str: ");
+                Serial.println(cycle[3].time_awake_str);
+                Serial.print("cycle[3].time_sleep_str: ");
+                Serial.println(cycle[3].time_sleep_str);
+
+                cycle[4].time_awake_str = inputString.substring(49, 54);
+                cycle[4].time_sleep_str = inputString.substring(54, 60);
+                cycle[4].time_awake = cycle[4].time_awake_str.toInt();
+                cycle[4].time_sleep = cycle[4].time_sleep_str.toInt();
+
+                Serial.print("cycle[4].time_awake_str: ");
+                Serial.println(cycle[4].time_awake_str);
+                Serial.print("cycle[4].time_sleep_str: ");
+                Serial.println(cycle[4].time_sleep_str);
+
                 /*conteneur=inputString.substring(37,40);
           f_acquisition=conteneur.toInt();
           f_acquisition=f_acquisition*1000;
           f_acquisition-=50;
           conteneur="";*/
 
-                conteneur = inputString.substring(37, 38);
+                conteneur = inputString.substring(60, 61);
                 etat_start = conteneur.toInt();
                 cycle_en_cours = 0;
                 flag_cycle = 0;
@@ -519,14 +540,19 @@ void loop()
                 Serial.print("etat_start: ");
                 Serial.println(etat_start);
 
-                cycle[0].nb_rep_str = inputString.substring(38, 40);
-                cycle[1].nb_rep_str = inputString.substring(40, 42);
-                cycle[2].nb_rep_str = inputString.substring(42, 44);
+                cycle[0].nb_rep_str = inputString.substring(61, 63);
+                cycle[1].nb_rep_str = inputString.substring(63, 65);
+                cycle[2].nb_rep_str = inputString.substring(65, 67);
+                cycle[3].nb_rep_str = inputString.substring(67, 69);
+                cycle[4].nb_rep_str = inputString.substring(69, 71);
+
                 cycle[0].nb_rep = cycle[0].nb_rep_str.toInt();
                 cycle[1].nb_rep = cycle[1].nb_rep_str.toInt();
                 cycle[2].nb_rep = cycle[2].nb_rep_str.toInt();
+                cycle[3].nb_rep = cycle[1].nb_rep_str.toInt();
+                cycle[4].nb_rep = cycle[2].nb_rep_str.toInt();
 
-                COURANT_MAX.amax_str = inputString.substring(44, 48);
+                COURANT_MAX.amax_str = inputString.substring(71, 74);
                 COURANT_MAX.amax = COURANT_MAX.amax_str.toFloat();
 
                 Serial.print("cycle[0].nb_rep_str: ");
@@ -535,6 +561,10 @@ void loop()
                 Serial.println(cycle[1].nb_rep_str);
                 Serial.print("cycle[2].nb_rep_str ");
                 Serial.println(cycle[2].nb_rep_str);
+                Serial.print("cycle[3].nb_rep_str ");
+                Serial.println(cycle[3].nb_rep_str);
+                Serial.print("cycle[4].nb_rep_str ");
+                Serial.println(cycle[4].nb_rep_str);
 
                 Serial.print("\n\nLa valeur lu du courant max vaut: ");
                 Serial.println(COURANT_MAX.amax_str);
