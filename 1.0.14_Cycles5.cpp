@@ -515,8 +515,8 @@ void loop()
                 Serial.print("cycle[3].time_sleep_str: ");
                 Serial.println(cycle[3].time_sleep_str);
 
-                cycle[4].time_awake_str = inputString.substring(49, 54);
-                cycle[4].time_sleep_str = inputString.substring(54, 60);
+                cycle[4].time_awake_str = inputString.substring(49, 55);
+                cycle[4].time_sleep_str = inputString.substring(55, 61);
                 cycle[4].time_awake = cycle[4].time_awake_str.toInt();
                 cycle[4].time_sleep = cycle[4].time_sleep_str.toInt();
 
@@ -531,7 +531,7 @@ void loop()
           f_acquisition-=50;
           conteneur="";*/
 
-                conteneur = inputString.substring(60, 61);
+                conteneur = inputString.substring(61, 62);
                 etat_start = conteneur.toInt();
                 cycle_en_cours = 0;
                 flag_cycle = 0;
@@ -540,11 +540,11 @@ void loop()
                 Serial.print("etat_start: ");
                 Serial.println(etat_start);
 
-                cycle[0].nb_rep_str = inputString.substring(61, 63);
-                cycle[1].nb_rep_str = inputString.substring(63, 65);
-                cycle[2].nb_rep_str = inputString.substring(65, 67);
-                cycle[3].nb_rep_str = inputString.substring(67, 69);
-                cycle[4].nb_rep_str = inputString.substring(69, 71);
+                cycle[0].nb_rep_str = inputString.substring(62, 64);
+                cycle[1].nb_rep_str = inputString.substring(64, 66);
+                cycle[2].nb_rep_str = inputString.substring(66, 68);
+                cycle[3].nb_rep_str = inputString.substring(68, 70);
+                cycle[4].nb_rep_str = inputString.substring(70, 72);
 
                 cycle[0].nb_rep = cycle[0].nb_rep_str.toInt();
                 cycle[1].nb_rep = cycle[1].nb_rep_str.toInt();
@@ -552,7 +552,7 @@ void loop()
                 cycle[3].nb_rep = cycle[1].nb_rep_str.toInt();
                 cycle[4].nb_rep = cycle[2].nb_rep_str.toInt();
 
-                COURANT_MAX.amax_str = inputString.substring(71, 74);
+                COURANT_MAX.amax_str = inputString.substring(72, 75);
                 COURANT_MAX.amax = COURANT_MAX.amax_str.toFloat();
 
                 Serial.print("cycle[0].nb_rep_str: ");
