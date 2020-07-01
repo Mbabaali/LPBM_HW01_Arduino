@@ -809,9 +809,9 @@ float conversion_channel_mA(long result)
     double courantAmperParBit = courant_max_LTC / 1048575;
 
     //courant_mA = (result * courantAmperParBit);// 0.00000390625);
-    courant_mA = (result * 0.00000476837613);
+    courant_mA = (result (uMax/resolution));
 
-    courant_mA = (courant_mA * 1000) / (0.020 * 250 * 3);
+    courant_mA = (courant_mA * 1000) / (resistanceShunt * gain);
     // Retour de la valeur convertie
     return courant_mA;
 }
@@ -824,7 +824,6 @@ float conversion_channel_microA(long result)
     double courant_microA;
     // Déclaration de la variable pour la tension
 
-    /*
     double resolution = 1048576;
     int resistanceShunt = 10;
     double uMax = 4.098;
@@ -833,11 +832,10 @@ float conversion_channel_microA(long result)
     double tensionMaxLtc = uMax / gain;
     double courant_max_LTC = tensionMaxLtc / resistanceShunt;
     double courantAmperParBit = courant_max_LTC / 1048575;
-  */
 
     //courant_mA = (result * courantAmperParBit);// 0.00000390625);
-    courant_microA = (result * 0.00000476837613);
-    courant_microA = (courant_microA * 1000000) / (10 * 250 * 3);
+    courant_microA = (result * (uMax/resolution));
+    courant_microA = (courant_microA * 1000000) / (resistanceShunt * gain);
 
     // Retour de la valeur convertie     0.00000
     return courant_microA;
