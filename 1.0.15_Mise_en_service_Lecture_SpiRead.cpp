@@ -648,44 +648,42 @@ void loop()
     // Serial.print("\n\nLa valeur lu du courant max vaut: ");
     // Serial.println(COURANT_MAX.amax_str);
 
-    dut1.set_channel_UI(SpiRead(1, 0));
-    dut4.set_channel_UI(SpiRead(3, 0));
-    //
+    dut1.set_channel_UI(SpiRead(0, 1));
+    dut1.set_channel_MI(SpiRead(0, 2));
+    dut1.set_channel_I(SpiRead(0, 3));
+    dut1.set_channel_NO(SpiRead(0, 4));
+    dut1.set_channel_PWR_DUT(SpiRead(0, 5));
+    dut2.set_channel_UI(SpiRead(0, 6));
+    dut2.set_channel_MI(SpiRead(0, 7));
+    dut2.set_channel_I(SpiRead(0, 0));
 
-    dut1.set_channel_MI(SpiRead(1, 1));
-    dut2.set_channel_PWR_DUT(SpiRead(2, 1));
-    dut4.set_channel_MI(SpiRead(3, 1));
-    dut5.set_channel_PWR_DUT(SpiRead(4, 1));
 
-    dut1.set_channel_I(SpiRead(1, 2));
-    dut3.set_channel_UI(SpiRead(2, 2));
-    dut4.set_channel_I(SpiRead(3, 2));
-    dut6.set_channel_UI(SpiRead(4, 2));
-    //
+    dut2.set_channel_NO(SpiRead(1, 2));
+    dut2.set_channel_PWR_DUT(SpiRead(1, 3));
+    dut3.set_channel_UI(SpiRead(1, 4));
+    dut3.set_channel_MI(SpiRead(1, 5));
+    dut3.set_channel_I(SpiRead(1, 6));
+    dut3.set_channel_NO(SpiRead(1, 7))
+    dut3.set_channel_PWR_DUT(SpiRead(1, 0));
 
-    dut1.set_channel_NO(SpiRead(1, 3));
-    dut3.set_channel_MI(SpiRead(2, 3));
-    dut4.set_channel_NO(SpiRead(3, 3));
-    dut6.set_channel_MI(SpiRead(4, 3));
-    //
 
-    dut1.set_channel_PWR_DUT(SpiRead(1, 4));
-    dut3.set_channel_I(SpiRead(2, 4));
-    dut4.set_channel_PWR_DUT(SpiRead(3, 4));
-    dut6.set_channel_I(SpiRead(4, 4));
-    //
+    dut4.set_channel_UI(SpiRead(2, 1));
+    dut4.set_channel_MI(SpiRead(2, 2));
+    dut4.set_channel_I(SpiRead(2, 3));
+    dut4.set_channel_NO(SpiRead(2, 4));
+    dut4.set_channel_PWR_DUT(SpiRead(2, 5));  
+    dut5.set_channel_UI(SpiRead(2, 6));
+    dut5.set_channel_MI(SpiRead(2, 7));   
+    dut5.set_channel_I(SpiRead(2, 0));
 
-    dut2.set_channel_UI(SpiRead(1, 5));
-    dut3.set_channel_NO(SpiRead(2, 5));
-    dut5.set_channel_UI(SpiRead(3, 5));
 
-    dut2.set_channel_MI(SpiRead(1, 6));
-    dut3.set_channel_PWR_DUT(SpiRead(2, 6));
-    dut5.set_channel_MI(SpiRead(3, 6));
-    dut6.set_channel_PWR_DUT(SpiRead(4, 6));
-
-    dut2.set_channel_I(SpiRead(1, 7));
-    dut5.set_channel_I(SpiRead(3, 7));
+    dut5.set_channel_NO(SpiRead(3, 2));
+    dut5.set_channel_PWR_DUT(SpiRead(3, 3));
+    dut6.set_channel_UI(SpiRead(3, 4));
+    dut6.set_channel_MI(SpiRead(3, 5));
+    dut6.set_channel_I(SpiRead(3, 6));
+    dut6.set_channel_NO(SpiRead(3, 7));
+    dut6.set_channel_PWR_DUT(SpiRead(3, 0));
 
     // SelectChannel(0);
     // delay(140);
