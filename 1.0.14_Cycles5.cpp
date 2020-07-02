@@ -786,7 +786,7 @@ float conversion_channel_A(long result)
     double courant_A;
 
     result = result - 384000;
-    courant_A = (result * 0.00000635 * 3);
+    courant_A = (result * 0.000007 * 3);
 
     // Retour de la valeur convertie
     return courant_A;
@@ -809,7 +809,7 @@ float conversion_channel_mA(long result)
     double courantAmperParBit = courant_max_LTC / 1048575;
 
     //courant_mA = (result * courantAmperParBit);// 0.00000390625);
-    courant_mA = (result (uMax/resolution));
+    courant_mA = (result * (uMax / resolution));
 
     courant_mA = (courant_mA * 1000) / (resistanceShunt * gain);
     // Retour de la valeur convertie
@@ -834,7 +834,7 @@ float conversion_channel_microA(long result)
     double courantAmperParBit = courant_max_LTC / 1048575;
 
     //courant_mA = (result * courantAmperParBit);// 0.00000390625);
-    courant_microA = (result * (uMax/resolution));
+    courant_microA = (result * (uMax / resolution));
     courant_microA = (courant_microA * 1000000) / (resistanceShunt * gain);
 
     // Retour de la valeur convertie     0.00000
@@ -1222,14 +1222,22 @@ long SpiReadChannelADC4(void)
 short int verif_nb_cycle()
 {
     nb_cycle = 1;
-    if ((cycle[1].time_awake != 0) || (cycle[1].time_sleep != 0))
-    {
-        nb_cycle++;
-    }
+    // if ((cycle[1].time_awake != 0) || (cycle[1].time_sleep != 0))
+    // {
+    //     nb_cycle++;
+    // }
 
-    if ((cycle[2].time_awake != 0) || (cycle[2].time_sleep != 0))
+    // if ((cycle[2].time_awake != 0) || (cycle[2].time_sleep != 0))
+    // {
+    //     nb_cycle++;
+    // }
+
+    for (int i = 1; i < 5; i++)
     {
-        nb_cycle++;
+        if ((cycle[i].time_awake != 0) || (cycle[i].time_sleep != 0))
+        {
+            nb_cycle++;
+        }
     }
     return nb_cycle;
 }
