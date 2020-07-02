@@ -1860,7 +1860,7 @@ void Dut::test_channel()
     Serial.print("\tFIN TEST DES VALEURS LUES DANS LES CHANNEL du ");
     Serial.print(get_name());
 
-        SerialUSB.print("\n\n****** TEST DES VALEURS LUES DANS LES CHANNEL DU ");
+    SerialUSB.print("\n\n****** TEST DES VALEURS LUES DANS LES CHANNEL DU ");
     SerialUSB.print(nom);
     SerialUSB.println(" ******");
 
