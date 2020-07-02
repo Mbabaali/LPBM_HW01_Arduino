@@ -1859,6 +1859,28 @@ void Dut::test_channel()
 
     Serial.print("\tFIN TEST DES VALEURS LUES DANS LES CHANNEL du ");
     Serial.print(get_name());
+
+        SerialUSB.print("\n\n****** TEST DES VALEURS LUES DANS LES CHANNEL DU ");
+    SerialUSB.print(nom);
+    SerialUSB.println(" ******");
+
+    SerialUSB.print("channel_UI :");
+    SerialUSB.println(get_channel_UI());
+
+    SerialUSB.print("channel_MI : ");
+    SerialUSB.println(get_channel_MI());
+
+    SerialUSB.print("channel_I : ");
+    SerialUSB.println(get_channel_I());
+
+    SerialUSB.print("channel_NO : ");
+    SerialUSB.println(get_channel_NO());
+
+    SerialUSB.print("channel_PWR_DUT : ");
+    SerialUSB.println(get_channel_PWR_DUT());
+
+    SerialUSB.print("\tFIN TEST DES VALEURS LUES DANS LES CHANNEL du ");
+    SerialUSB.println(get_name());
 }
 
 /*Methode pour la mise en place d'un coefficient correcteur du mA et de l'A
