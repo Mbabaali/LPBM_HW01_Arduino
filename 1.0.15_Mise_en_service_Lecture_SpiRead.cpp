@@ -654,9 +654,8 @@ void loop()
 
     dut1.set_channel_MI(SpiRead(1, 1));
     dut2.set_channel_PWR_DUT(SpiRead(2, 1));
-    dut4.set_channel_MI(SpiRead(3, 1);
-    dut5.set_channel_PWR_DUT(SpiRead(4, 1);
-
+    dut4.set_channel_MI(SpiRead(3, 1));
+    dut5.set_channel_PWR_DUT(SpiRead(4, 1));
 
     dut1.set_channel_I(SpiRead(1, 2));
     dut3.set_channel_UI(SpiRead(2, 2));
@@ -669,7 +668,7 @@ void loop()
     dut4.set_channel_NO(SpiRead(3, 3));
     dut6.set_channel_MI(SpiRead(4, 3));
     //
- 
+
     dut1.set_channel_PWR_DUT(SpiRead(1, 4));
     dut3.set_channel_I(SpiRead(2, 4));
     dut4.set_channel_PWR_DUT(SpiRead(3, 4));
@@ -680,12 +679,10 @@ void loop()
     dut3.set_channel_NO(SpiRead(2, 5));
     dut5.set_channel_UI(SpiRead(3, 5));
 
-
     dut2.set_channel_MI(SpiRead(1, 6));
     dut3.set_channel_PWR_DUT(SpiRead(2, 6));
     dut5.set_channel_MI(SpiRead(3, 6));
     dut6.set_channel_PWR_DUT(SpiRead(4, 6));
-
 
     dut2.set_channel_I(SpiRead(1, 7));
     dut5.set_channel_I(SpiRead(3, 7));
@@ -746,12 +743,12 @@ void loop()
     // delay(150);
     // dut2.set_channel_MI(SpiReadChannelADC1());
 
-    //   dut1.test_channel();
-    //   dut2.test_channel();
-    //   dut3.test_channel();
-    //   dut4.test_channel();
-    //   dut5.test_channel();
-    //   dut6.test_channel();
+    dut1.test_channel();
+    dut2.test_channel();
+    dut3.test_channel();
+    dut4.test_channel();
+    dut5.test_channel();
+    dut6.test_channel();
 
     dut1.assignation_valeurs_converties();
     dut2.assignation_valeurs_converties();
