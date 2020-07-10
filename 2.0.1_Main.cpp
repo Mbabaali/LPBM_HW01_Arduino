@@ -704,12 +704,12 @@ void loop()
     // delay(150);
     // dut2.set_channel_MI(SpiReadChannelADC1());
 
-    //   dut1.test_channel();
-    //   dut2.test_channel();
-    //   dut3.test_channel();
-    //   dut4.test_channel();
-    //   dut5.test_channel();
-    //   dut6.test_channel();
+      dut1.test_channel();
+      dut2.test_channel();
+      dut3.test_channel();
+      dut4.test_channel();
+      dut5.test_channel();
+      dut6.test_channel();
 
     dut1.assignation_valeurs_converties();
     dut2.assignation_valeurs_converties();

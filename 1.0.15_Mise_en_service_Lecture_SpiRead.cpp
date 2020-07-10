@@ -793,7 +793,8 @@ void HANDLER_CURRENT_MAX()
 
     //Serial.println("\t*******  Handler  1*********");
     if (FLAG_CURRENT_MAX_DUT1 == true || FLAG_CURRENT_MAX_DUT2 == true || FLAG_CURRENT_MAX_DUT3 == true ||
-        FLAG_CURRENT_MAX_DUT4 == true || FLAG_CURRENT_MAX_DUT5 == true || FLAG_CURRENT_MAX_DUT6 == true)
+        FLAG_CURRENT_MAX_DUT4 == true || FLAG_CURRENT_MAX_DUT5 == true || FLAG_CURRENT_MAX_DUT6 == true ||
+        (cycle[0].time_awake == 0 && cycle[0].time_sleep == 0) )
     {
         digitalWrite(CMD_PWR_DUT1, LOW);
         digitalWrite(CMD_PWR_DUT2, LOW);
@@ -836,7 +837,7 @@ float conversion_channel_mA(long result)
 {
     double courant_mA = 0;
 
-    double resolution = 1048576;
+    double resolution = 1048575;
     double resistanceShunt = 0.020;
     double uMax = 4.098;
     double span = 0.00000390625; //(uMax/resolution);
@@ -861,7 +862,7 @@ float conversion_channel_microA(long result)
     double courant_microA;
     // Déclaration de la variable pour la tension
 
-    double resolution = 1048576;
+    double resolution = 104857;
     int resistanceShunt = 10;
     double uMax = 4.098;
     double span = uMax / resolution;
