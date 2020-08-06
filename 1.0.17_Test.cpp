@@ -648,46 +648,70 @@ void loop()
     // Serial.print("\n\nLa valeur lu du courant max vaut: ");
     // Serial.println(COURANT_MAX.amax_str);
 
-    dut1.set_channel_UI(SpiRead(0, 0));
-    dut1.set_channel_MI(SpiRead(0, 1));
-    dut1.set_channel_I(SpiRead(0, 2));
-    dut1.set_channel_NO(SpiRead(0, 3));
-    dut1.set_channel_PWR_DUT(SpiRead(0, 4));
-    dut2.set_channel_UI(SpiRead(0, 5));
-    dut2.set_channel_MI(SpiRead(0, 6));
-    dut2.set_channel_I(SpiRead(0, 7));
+    SelectChannel(0);
+    delay(140);
+    dut1.set_channel_UI(SpiReadChannelADC1());// - 108.1);
+    dut2.set_channel_NO(SpiReadChannelADC2());
+    dut4.set_channel_UI(SpiReadChannelADC3());
+    dut5.set_channel_UI(SpiReadChannelADC4());
+    //
+    SelectChannel(1);
+    delay(150);
+    dut1.set_channel_MI(SpiReadChannelADC1());
+    dut2.set_channel_PWR_DUT(SpiReadChannelADC2());
+    dut4.set_channel_MI(SpiReadChannelADC3());
+    dut5.set_channel_PWR_DUT(SpiReadChannelADC4());
 
-    dut2.set_channel_NO(SpiRead(1, 0));
-    dut2.set_channel_PWR_DUT(SpiRead(1, 1));
-    dut3.set_channel_UI(SpiRead(1, 2));
-    dut3.set_channel_MI(SpiRead(1, 3));
-    dut3.set_channel_I(SpiRead(1, 4));
-    dut3.set_channel_NO(SpiRead(1, 5));
-    dut3.set_channel_PWR_DUT(SpiRead(1, 6));
+    SelectChannel(2);
+    delay(150);
+    dut1.set_channel_I(SpiReadChannelADC1());
+    dut3.set_channel_UI(SpiReadChannelADC2());
+    dut4.set_channel_I(SpiReadChannelADC3());
+    dut6.set_channel_UI(SpiReadChannelADC4());
+    //
+    SelectChannel(3);
+    delay(150);
+    dut1.set_channel_NO(SpiReadChannelADC1());
+    dut3.set_channel_MI(SpiReadChannelADC2());
+    dut4.set_channel_NO(SpiReadChannelADC3());
+    dut6.set_channel_MI(SpiReadChannelADC4());
+    //
+    SelectChannel(4);
+    delay(150);
+    dut1.set_channel_PWR_DUT(SpiReadChannelADC1());
+    dut3.set_channel_I(SpiReadChannelADC2());
+    dut4.set_channel_PWR_DUT(SpiReadChannelADC3());
+    dut6.set_channel_I(SpiReadChannelADC4());
+    //
+    SelectChannel(5);
+    delay(150);
+    dut2.set_channel_UI(SpiReadChannelADC1());
+    dut3.set_channel_NO(SpiReadChannelADC2());
+    dut5.set_channel_UI(SpiReadChannelADC3());
 
-    dut4.set_channel_UI(SpiRead(2, 0));
-    dut4.set_channel_MI(SpiRead(2, 1));
-    dut4.set_channel_I(SpiRead(2, 2));
-    dut4.set_channel_NO(SpiRead(2, 3));
-    dut4.set_channel_PWR_DUT(SpiRead(2, 4));
-    dut5.set_channel_UI(SpiRead(2, 5));
-    dut5.set_channel_MI(SpiRead(2, 6));
-    dut5.set_channel_I(SpiRead(2, 7));
+    SelectChannel(6);
+    delay(150);
+    dut2.set_channel_MI(SpiReadChannelADC1());
+    dut2.set_channel_MI(dut2.get_channel_MI()); // - 69454);
+    dut3.set_channel_PWR_DUT(SpiReadChannelADC2());
+    dut5.set_channel_MI(SpiReadChannelADC3());
+    dut6.set_channel_PWR_DUT(SpiReadChannelADC4());
 
-    dut5.set_channel_NO(SpiRead(3, 0));
-    dut5.set_channel_PWR_DUT(SpiRead(3, 1));
-    dut6.set_channel_UI(SpiRead(3, 2));
-    dut6.set_channel_MI(SpiRead(3, 3));
-    dut6.set_channel_I(SpiRead(3, 4));
-    dut6.set_channel_NO(SpiRead(3, 5));
-    dut6.set_channel_PWR_DUT(SpiRead(3, 6));
+    SelectChannel(7);
+    delay(150);
+    dut2.set_channel_I(SpiReadChannelADC1());
+    dut5.set_channel_I(SpiReadChannelADC3());
 
-    dut1.test_channel();
-    dut2.test_channel();
-    dut3.test_channel();
-    dut4.test_channel();
-    dut5.test_channel();
-    dut6.test_channel();
+    // SelectChannel(5);
+    // delay(150);
+    // dut2.set_channel_MI(SpiReadChannelADC1());
+
+       dut1.test_channel();
+       dut2.test_channel();
+       dut3.test_channel();
+       dut4.test_channel();
+       dut5.test_channel();
+       dut6.test_channel();
 
     dut1.assignation_valeurs_converties();
     dut2.assignation_valeurs_converties();
@@ -696,12 +720,12 @@ void loop()
     dut5.assignation_valeurs_converties();
     dut6.assignation_valeurs_converties();
 
-    // dut1.test_assignation_valeurs_converties();
-    // dut2.test_assignation_valeurs_converties();
-    // dut3.test_assignation_valeurs_converties();
-    // dut4.test_assignation_valeurs_converties();
-    // dut5.test_assignation_valeurs_converties();
-    // dut6.test_assignation_valeurs_converties();
+     dut1.test_assignation_valeurs_converties();
+     dut2.test_assignation_valeurs_converties();
+     dut3.test_assignation_valeurs_converties();
+     dut4.test_assignation_valeurs_converties();
+     dut5.test_assignation_valeurs_converties();
+     dut6.test_assignation_valeurs_converties();
 
     EnvoiTrame(dut1, dut2, dut3, dut4, dut5, dut6);
 
@@ -733,8 +757,9 @@ void HANDLER_CURRENT_MAX()
 {
 
     //Serial.println("\t*******  Handler  1*********");
-    if (FLAG_CURRENT_MAX_DUT1 == true || FLAG_CURRENT_MAX_DUT2 == true || FLAG_CURRENT_MAX_DUT3 == true ||
-        FLAG_CURRENT_MAX_DUT4 == true || FLAG_CURRENT_MAX_DUT5 == true || FLAG_CURRENT_MAX_DUT6 == true ||)
+    if (FLAG_CURRENT_MAX_DUT1 == true || FLAG_CURRENT_MAX_DUT2 == true || FLAG_CURRENT_MAX_DUT3 == true  ||
+        FLAG_CURRENT_MAX_DUT4 == true || FLAG_CURRENT_MAX_DUT5 == true || FLAG_CURRENT_MAX_DUT6 == true  ||
+        (cycle[0].time_awake == 0 && cycle[0].time_sleep == 0))
     {
         digitalWrite(CMD_PWR_DUT1, LOW);
         digitalWrite(CMD_PWR_DUT2, LOW);
@@ -744,16 +769,15 @@ void HANDLER_CURRENT_MAX()
         digitalWrite(CMD_PWR_DUT6, LOW);
     }
     else if (FLAG_CURRENT_MAX_DUT1 == false || FLAG_CURRENT_MAX_DUT2 == false || FLAG_CURRENT_MAX_DUT3 == false ||
-             FLAG_CURRENT_MAX_DUT4 == false || FLAG_CURRENT_MAX_DUT5 == false || FLAG_CURRENT_MAX_DUT6 == false)|| )
-                                  (cycle[0].time_awake == 0 && cycle[0].time_sleep == 0)
-        {
-            digitalWrite(CMD_PWR_DUT1, HIGH);
-            digitalWrite(CMD_PWR_DUT2, HIGH);
-            digitalWrite(CMD_PWR_DUT3, HIGH);
-            digitalWrite(CMD_PWR_DUT4, HIGH);
-            digitalWrite(CMD_PWR_DUT5, HIGH);
-            digitalWrite(CMD_PWR_DUT6, HIGH);
-        }
+             FLAG_CURRENT_MAX_DUT4 == false || FLAG_CURRENT_MAX_DUT5 == false || FLAG_CURRENT_MAX_DUT6 == false)
+    {
+        digitalWrite(CMD_PWR_DUT1, HIGH);
+        digitalWrite(CMD_PWR_DUT2, HIGH);
+        digitalWrite(CMD_PWR_DUT3, HIGH);
+        digitalWrite(CMD_PWR_DUT4, HIGH);
+        digitalWrite(CMD_PWR_DUT5, HIGH);
+        digitalWrite(CMD_PWR_DUT6, HIGH);
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -778,9 +802,9 @@ float conversion_channel_mA(long result)
 {
     double courant_mA = 0;
 
-    double resolution = 1048575;
+    double resolution = 1048576;
     double resistanceShunt = 0.020;
-    double uMax = 4.098;
+    double uMax = 4.98;
     double span = 0.00000390625; //(uMax/resolution);
     int gain = 250 * 3;
     double tensionMaxLtc = uMax / gain;
@@ -803,9 +827,9 @@ float conversion_channel_microA(long result)
     double courant_microA;
     // Déclaration de la variable pour la tension
 
-    double resolution = 104857;
+    double resolution = 1048576;
     int resistanceShunt = 10;
-    double uMax = 4.098;
+    double uMax = 4.98;
     double span = uMax / resolution;
     int gain = 250 * 3;
     double tensionMaxLtc = uMax / gain;
@@ -1812,30 +1836,6 @@ void Dut::test_assignation_valeurs_converties()
 
     Serial.print("valeur dans UNITE : ");
     Serial.println(get_unite());
-
-    // Dernière modification 24/10/2019 à 13h15 par Aslam BARWANE
-    SerialUSB.print("\n\n****** TEST VALEURS LUES ET CONVERTIES dans le ");
-
-    SerialUSB.print(get_name());
-    SerialUSB.println(" ******");
-
-    SerialUSB.print("valeur dans uA : ");
-    SerialUSB.println(get_uA());
-
-    SerialUSB.print("valeur dans mA : ");
-    SerialUSB.println(get_mA());
-
-    SerialUSB.print("valeur dans A : ");
-    SerialUSB.println(get_A());
-
-    SerialUSB.print("valeur dans Vin : ");
-    SerialUSB.println(get_Vin());
-
-    SerialUSB.println("\tFin de lecture des assignastion des valeur du ");
-    SerialUSB.print(get_name());
-
-    SerialUSB.print("valeur dans UNITE : ");
-    SerialUSB.println(get_unite());
 }
 
 void Dut::test_channel()
@@ -1861,8 +1861,9 @@ void Dut::test_channel()
     Serial.println(get_channel_PWR_DUT());
 
     Serial.print("\tFIN TEST DES VALEURS LUES DANS LES CHANNEL du ");
-    Serial.println(get_name());
-
+    Serial.print(get_name());
+    
+    /*
     SerialUSB.print("\n\n****** TEST DES VALEURS LUES DANS LES CHANNEL DU ");
     SerialUSB.print(nom);
     SerialUSB.println(" ******");
@@ -1884,6 +1885,8 @@ void Dut::test_channel()
 
     SerialUSB.print("\tFIN TEST DES VALEURS LUES DANS LES CHANNEL du ");
     SerialUSB.println(get_name());
+    
+     */
 }
 
 /*Methode pour la mise en place d'un coefficient correcteur du mA et de l'A
@@ -1893,7 +1896,7 @@ void Dut::test_channel()
 */
 void Dut::correctionValeur()
 {
-    mA = mA - 0.35;
+    //mA = mA - 0.35;
     A = A - 0.35;
 }
 
@@ -1906,27 +1909,15 @@ void Dut::checkUniteAdc()
     set_unite(check);
 
     // SerialUSB.println("*************** CheckUnitAdc **************** ");
-    // SerialUSB.println(" ");
-    // SerialUSB.println(" On vas prendre les get ");
-    // SerialUSB.print("get_A(): ");
-    // SerialUSB.println(get_A());
-
-    // SerialUSB.print("get_mA(): ");
-    // SerialUSB.println(get_mA());
-
-    // SerialUSB.print("get_uA(): ");
-    // SerialUSB.println(get_uA());
-
     if (get_A() > 0.5)
     {
         unite = cu_A;
         //SerialUSB.println("adc.A>0.5");
     }
-    else if (get_mA() >= 1.4)
+    else if (get_A() >= 0.1 && get_uA() >= 200)
     {
         unite = cu_mA;
-        //SerialUSB.println("unite : mA");
-        //SerialUSB.println(adc.mA);
+        set_mA(get_A()*1000);
     }
     else if (get_mA() < 1.4)
     {
@@ -1936,14 +1927,10 @@ void Dut::checkUniteAdc()
     }
     else
     {
-        unite = unknown;
+        unite = cu_mA;
         //SerialUSB.println("unknown   (checkUniteAdc)");
     }
-    // SerialUSB.print("Unite: ");
-    // SerialUSB.println(unite);
-    //return unite;
 }
-
 void state_CSADC(int etat)
 /**
    Les 4 ADC du banc ont un multiplexeur integré, cette fonction nous permet de le set pour récuperer un channel en particulier de l'ADC
@@ -2028,7 +2015,7 @@ void HANDLER_ACC()
 long SpiRead(int CS_ADC, int channel_adc)
 {
     int channel[8] = {0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F}; //
-    int CSADC_channel[6] = {CSMUX1, CSMUX2, CSMUX3, CSMUX4};
+    int CSADC_channel[4] = {CSADC1, CSADC2, CSADC3, CSADC4};
 
     digitalWrite(CSADC_channel[CS_ADC], LOW);
     digitalWrite(CSADC_channel[CS_ADC], HIGH);
